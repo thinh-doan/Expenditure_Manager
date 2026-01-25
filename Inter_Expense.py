@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'addExpense_dialog.ui'
+# Form implementation generated from reading ui file 'Inter_Expense.ui'
 #
 # Created by: PyQt6 UI code generator 6.10.2
 #
