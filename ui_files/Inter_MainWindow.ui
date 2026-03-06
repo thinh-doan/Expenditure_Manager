@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1116</width>
+    <width>983</width>
     <height>763</height>
    </rect>
   </property>
@@ -19,7 +19,7 @@
    <string>Expenditure Manager</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout" stretch="0,18">
+   <layout class="QVBoxLayout" name="verticalLayout_3">
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
@@ -75,162 +75,189 @@
        <attribute name="title">
         <string>Transactions</string>
        </attribute>
-       <layout class="QGridLayout" name="gridLayout_5" columnstretch="2,1,0">
-        <item row="0" column="0">
-         <layout class="QGridLayout" name="gridLayout">
-          <item row="0" column="0">
-           <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <layout class="QHBoxLayout" name="horizontalLayout_10" stretch="0">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="2,1">
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_2">
             <item>
-             <spacer name="horizontalSpacer_4">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
+             <layout class="QHBoxLayout" name="horizontalLayout_2">
+              <item>
+               <spacer name="horizontalSpacer_4">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="btnAdd_Income">
+                <property name="text">
+                 <string>Add Income</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_3">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="btnAdd_Saving">
+                <property name="text">
+                 <string>Add Saving</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_5">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="btnAdd_Expense">
+                <property name="text">
+                 <string>Add Expense </string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_6">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
             </item>
             <item>
-             <widget class="QPushButton" name="btnAdd_Income">
-              <property name="text">
-               <string>Add Income</string>
-              </property>
+             <widget class="QTableWidget" name="tableInfor">
+              <column>
+               <property name="text">
+                <string>Date</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Type</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Category</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Amount</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Note</string>
+               </property>
+              </column>
              </widget>
-            </item>
-            <item>
-             <spacer name="horizontalSpacer_3">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
-             <widget class="QPushButton" name="btnAdd_Saving">
-              <property name="text">
-               <string>Add Saving</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="horizontalSpacer_5">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
-             <widget class="QPushButton" name="btnAdd_Expense">
-              <property name="text">
-               <string>Add Expense </string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="horizontalSpacer_6">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
             </item>
            </layout>
           </item>
-         </layout>
-        </item>
-        <item row="0" column="1">
-         <layout class="QHBoxLayout" name="horizontalLayout_6">
           <item>
-           <spacer name="horizontalSpacer_11">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QPushButton" name="btnSummarize">
-            <property name="text">
-             <string>Summarize</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_12">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </item>
-        <item row="1" column="0">
-         <widget class="QTableWidget" name="tableInfor">
-          <column>
-           <property name="text">
-            <string>Date</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Type</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Category</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Amount</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Note</string>
-           </property>
-          </column>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <layout class="QVBoxLayout" name="verticalLayout_4">
-          <item>
-           <layout class="QVBoxLayout" name="verticalLayout_5">
+           <layout class="QVBoxLayout" name="verticalLayout">
             <item>
-             <layout class="QGridLayout" name="gridLayout_3">
+             <layout class="QHBoxLayout" name="horizontalLayout_6">
+              <item>
+               <spacer name="horizontalSpacer_11">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="btnSummarize">
+                <property name="text">
+                 <string>Summarize</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_12">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QFormLayout" name="formLayout">
+              <item row="0" column="0">
+               <widget class="QLabel" name="label_7">
+                <property name="text">
+                 <string>Safety Box: </string>
+                </property>
+               </widget>
+              </item>
               <item row="0" column="1">
+               <widget class="QLineEdit" name="txtIncome_2"/>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="label_3">
+                <property name="text">
+                 <string>Income:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
                <widget class="QLineEdit" name="txtIncome"/>
+              </item>
+              <item row="2" column="0">
+               <widget class="QLabel" name="label_2">
+                <property name="text">
+                 <string>Saving:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="QLineEdit" name="txtSaving"/>
               </item>
               <item row="3" column="0">
                <widget class="QLabel" name="label_4">
@@ -239,43 +266,26 @@
                 </property>
                </widget>
               </item>
-              <item row="0" column="0">
-               <widget class="QLabel" name="label_3">
-                <property name="text">
-                 <string>Income:</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="1">
-               <widget class="QLineEdit" name="txtSaving"/>
-              </item>
-              <item row="1" column="0">
-               <widget class="QLabel" name="label_2">
-                <property name="text">
-                 <string>Saving:</string>
-                </property>
-               </widget>
-              </item>
               <item row="3" column="1">
-               <widget class="QLineEdit" name="txtExpense"/>
-              </item>
-              <item row="4" column="1">
-               <spacer name="verticalSpacer">
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-                <property name="sizeType">
-                 <enum>QSizePolicy::Preferred</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>20</width>
-                  <height>30</height>
-                 </size>
-                </property>
-               </spacer>
+               <widget class="QLineEdit" name="txtIncome_3"/>
               </item>
              </layout>
+            </item>
+            <item>
+             <spacer name="verticalSpacer">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Preferred</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>266</width>
+                <height>19</height>
+               </size>
+              </property>
+             </spacer>
             </item>
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -318,22 +328,6 @@
              <widget class="QPlainTextEdit" name="txtComment"/>
             </item>
             <item>
-             <spacer name="verticalSpacer_2">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeType">
-               <enum>QSizePolicy::Preferred</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>30</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
              <layout class="QHBoxLayout" name="horizontalLayout_5">
               <item>
                <spacer name="horizontalSpacer_9">
@@ -370,12 +364,25 @@
               </item>
              </layout>
             </item>
+            <item>
+             <spacer name="verticalSpacer_2">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Preferred</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>30</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
            </layout>
           </item>
          </layout>
-        </item>
-        <item row="2" column="2">
-         <layout class="QVBoxLayout" name="verticalLayout_2"/>
         </item>
        </layout>
       </widget>
@@ -861,7 +868,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1116</width>
+     <width>983</width>
      <height>27</height>
     </rect>
    </property>
