@@ -94,7 +94,7 @@
              </spacer>
             </item>
             <item>
-             <widget class="QPushButton" name="ptnAdd_Income">
+             <widget class="QPushButton" name="btnAdd_Income">
               <property name="text">
                <string>Add Income</string>
               </property>
@@ -114,7 +114,7 @@
              </spacer>
             </item>
             <item>
-             <widget class="QPushButton" name="ptnAdd_Saving">
+             <widget class="QPushButton" name="btnAdd_Saving">
               <property name="text">
                <string>Add Saving</string>
               </property>
@@ -134,7 +134,7 @@
              </spacer>
             </item>
             <item>
-             <widget class="QPushButton" name="ptnAdd_Expense">
+             <widget class="QPushButton" name="btnAdd_Expense">
               <property name="text">
                <string>Add Expense </string>
               </property>
@@ -173,7 +173,7 @@
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="ptnSummarize">
+           <widget class="QPushButton" name="btnSummarize">
             <property name="text">
              <string>Summarize</string>
             </property>
@@ -293,7 +293,7 @@
                </spacer>
               </item>
               <item>
-               <widget class="QPushButton" name="ptnCompare">
+               <widget class="QPushButton" name="btnCompare">
                 <property name="text">
                  <string>Compare</string>
                 </property>
@@ -349,7 +349,7 @@
                </spacer>
               </item>
               <item>
-               <widget class="QPushButton" name="ptnRefresh">
+               <widget class="QPushButton" name="btnRefresh">
                 <property name="text">
                  <string>Refresh</string>
                 </property>

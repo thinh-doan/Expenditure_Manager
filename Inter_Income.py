@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'addIncome_dialog.ui'
+# Form implementation generated from reading ui file 'ui_files/Inter_Income.ui'
 #
 # Created by: PyQt6 UI code generator 6.10.2
 #
@@ -55,12 +55,12 @@ class Ui_MainWindow(object):
         self.verticalLayout.addItem(spacerItem)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
-        self.ptnOK = QtWidgets.QPushButton(parent=self.centralwidget)
-        self.ptnOK.setObjectName("ptnOK")
-        self.horizontalLayout.addWidget(self.ptnOK)
-        self.ptnCancel = QtWidgets.QPushButton(parent=self.centralwidget)
-        self.ptnCancel.setObjectName("ptnCancel")
-        self.horizontalLayout.addWidget(self.ptnCancel)
+        self.btnOK = QtWidgets.QPushButton(parent=self.centralwidget)
+        self.btnOK.setObjectName("btnOK")
+        self.horizontalLayout.addWidget(self.btnOK)
+        self.btnCancel = QtWidgets.QPushButton(parent=self.centralwidget)
+        self.btnCancel.setObjectName("btnCancel")
+        self.horizontalLayout.addWidget(self.btnCancel)
         self.verticalLayout.addLayout(self.horizontalLayout)
         self.gridLayout.addLayout(self.verticalLayout, 0, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
@@ -87,8 +87,8 @@ class Ui_MainWindow(object):
         self.label_2.setText(_translate("MainWindow", "Amount:"))
         self.label_3.setText(_translate("MainWindow", "Date:"))
         self.label_4.setText(_translate("MainWindow", "Note:"))
-        self.ptnOK.setText(_translate("MainWindow", "OK"))
-        self.ptnCancel.setText(_translate("MainWindow", "Cancel"))
+        self.btnOK.setText(_translate("MainWindow", "OK"))
+        self.btnCancel.setText(_translate("MainWindow", "Cancel"))
 
 
 if __name__ == "__main__":
