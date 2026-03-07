@@ -1,5 +1,6 @@
-from datetime import datetime
+# chứa các hàm xử lý dữ liệu
 
+from datetime import datetime
 
 class Ex_Manager_Process:
 
@@ -36,10 +37,40 @@ class Ex_Manager_Process:
 
     @classmethod
     def get_transactions(cls):
-        return cls.ds.copy()
+        return cls.ds
 
-    def luu_tru(self):
-        pass
+    @classmethod
+    def tinh_tong(cls):     # Tính tổng của tất các type và category
+        totals = {
+            'Income': {'total': 0, 'Salary': 0, 'Allowance': 0, 'Part-time job': 0, 'Other': 0},
+            'Saving': {'total': 0, 'Emergency': 0, 'Goal': 0, 'General': 0, 'Other': 0},
+            'Expense': {'total': 0, 'Food': 0, 'Transport': 0, 'Entertainment': 0, 'Education': 0, 'Other': 0}
+        }
 
-    def hien_thi(self):
-        pass
+        for trans in cls.ds:
+            tr_type = trans['type']
+            tr_amount = trans['amount']
+            tr_category = trans['category']
+
+            if trans['type'] in totals:
+                totals[tr_type]['total'] += tr_amount
+                if trans['category'] in totals[tr_type]:
+                    totals[tr_type][tr_category] += tr_amount
+
+        return totals
+    
+    
+
+# if __name__ == "__main__":
+#     ex = Ex_Manager_Process()
+
+#     ex.add_transaction("Income", "Salary", 1000, "07/03/2026", "Lương tháng")
+#     ex.add_transaction("Income", "Allowance", 200, "07/03/2026", "Trợ cấp")
+#     ex.add_transaction("Expense", "Food", 50, "07/03/2026", "Ăn trưa")
+#     ex.add_transaction("Expense", "Transport", 20, "07/03/2026", "Xe bus")
+#     ex.add_transaction("Saving", "Emergency", 100, "07/03/2026", "Tiết kiệm")
+#     ex.add_transaction("Saving", "Goal", 200, "09/02/2026", "Tiết kiệm")
+
+#     totals = Ex_Manager_Process.tinh_tong()
+
+#     print(totals)

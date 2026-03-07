@@ -87,7 +87,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.btnAdd_Income.clicked.connect(self.open_add_income)
         self.btnAdd_Saving.clicked.connect(self.open_add_saving)
         self.btnAdd_Expense.clicked.connect(self.open_add_expense)
-        
+        self.btnSummarize.clicked.connect(self.summarize)
+
         self.hien_thi_tableInfor()  #Hiển thị dữ liệu ban đầu
 
     def open_add_income(self):
@@ -115,3 +116,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.tableInfor.setItem(row, 2, QTableWidgetItem(trans['category']))
             self.tableInfor.setItem(row, 3, QTableWidgetItem(str(trans['amount'])))
             self.tableInfor.setItem(row, 4, QTableWidgetItem(trans['note']))
+
+    #Thiếu safety box
+    def summarize(self):
+        data = self.processer.tinh_tong()
+
+        self.txtIncome.setText(str(data['Income']['total'])); self.txtIncome.setReadOnly(True)
+        self.txtSaving.setText(str(data['Saving']['total'])); self.txtSaving.setReadOnly(True)
+        self.txtExpense.setText(str(data['Expense']['total'])); self.txtExpense.setReadOnly(True)
