@@ -42,7 +42,7 @@ class Ex_Manager_Process:
     @classmethod
     def tinh_tong(cls):     # Tính tổng của tất các type và category
         totals = {
-            'Income': {'total': 0, 'Salary': 0, 'Allowance': 0, 'Part-time job': 0, 'Other': 0},
+            'Income': {'total': 0, 'Salary': 0, 'Allowance': 0, 'Part-time job': 0, 'Full-time job': 0, 'Other': 0},
             'Saving': {'total': 0, 'Emergency': 0, 'Goal': 0, 'General': 0, 'Other': 0},
             'Expense': {'total': 0, 'Food': 0, 'Transport': 0, 'Entertainment': 0, 'Education': 0, 'Other': 0}
         }

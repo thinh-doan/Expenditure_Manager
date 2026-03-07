@@ -124,3 +124,32 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.txtIncome.setText(str(data['Income']['total'])); self.txtIncome.setReadOnly(True)
         self.txtSaving.setText(str(data['Saving']['total'])); self.txtSaving.setReadOnly(True)
         self.txtExpense.setText(str(data['Expense']['total'])); self.txtExpense.setReadOnly(True)
+
+        self.hien_thi_tableThisMonth()
+
+    def hien_thi_tableThisMonth(self):
+        data = self.processer.tinh_tong()
+        
+        row_map = {
+            0: ('Income', 'total'),
+            1: ('Income', 'Salary'),
+            2: ('Income', 'Allowance'),
+            3: ('Income', 'Full-time job'),
+            4: ('Income', 'Part-time job'),
+            5: ('Income', 'Other'),
+            6: ('Saving', 'total'),
+            7: ('Saving', 'Emergency'),
+            8: ('Saving', 'Goal'),
+            9: ('Saving', 'General'),
+            10: ('Saving', 'Other'),
+            11: ('Expense', 'total'),
+            12: ('Expense', 'Food'),
+            13: ('Expense', 'Transport'),
+            14: ('Expense', 'Education'),
+            15: ('Expense', 'Entertainment'),
+            16: ('Expense', 'Other')
+        }
+
+        for row, (tr_type, ctg) in row_map.items():     #items dùng để lấy cả key và value
+                amount = data[tr_type][ctg]
+                self.tableThisMonth.setItem(row, 0, QTableWidgetItem(f"{amount:.2f}"))
