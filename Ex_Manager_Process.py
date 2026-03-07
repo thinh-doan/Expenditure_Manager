@@ -1,21 +1,45 @@
 # danh sách chi tiêu, thêm, xoá, tính tổng tiền, lưu file
+from datetime import datetime, timedelta
 
-from Inter_MainWindow import Ui_MainWindow
-from Inter_Expense import Ui_MainWindow as ExpenseUI
-from Inter_Income import Ui_MainWindow as IncomeUI
-from Inter_Saving import Ui_MainWindow as SavingUI
-from PyQt6.QtWidgets import QMainWindow
-
-class Ex_Manager(QMainWindow, Ui_MainWindow):
+class Ex_Manager_Process:
     ds = []
-
-    def __init__(self, tr_category, tr_amount, tr_date, tr_note, parent= None):
-        self.tr_category = tr_category
-        self.tr_amount = tr_amount
-        self.tr_date = tr_date
-        self.tr_note = tr_note
-
-
-    def 
-
     
+    def add_transaction(self, tr_type, tr_category, tr_amount, tr_date, tr_note):
+        try:
+            tr_amount = float(tr_amount)
+            if tr_amount <= 0:
+                return False, "Số tiền phải là số dương!"
+            
+            try: # why try not if?
+                # Validate date format
+                datetime.strptime(tr_date, "%d/%m/%Y")
+            except ValueError:
+                return False, "Định dạng ngày không hợp lệ, nhập lại DD/MM/YYYY!"
+
+            transaction = {
+                'date': tr_date,
+                'type': tr_type,
+                'category': tr_category,
+                'amount': tr_amount,
+                'note': tr_note
+            }
+            Ex_Manager_Process.ds.append(transaction)
+            return True, "Transaction added successfully"
+        
+        except ValueError:
+            return False, "Invalid amount"
+
+    @classmethod    
+    def get_transactions(cls):
+        return cls.ds
+
+    def luu_tru(self):
+        pass
+
+    def hien_thi(self):
+        pass
+
+
+
+
+         
