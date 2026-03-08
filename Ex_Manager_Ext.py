@@ -89,16 +89,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.btnAdd_Saving.clicked.connect(self.open_add_saving)
         self.btnAdd_Expense.clicked.connect(self.open_add_expense)
         self.btnSummarize.clicked.connect(self.summarize)
+        self.btnRefresh.clicked.connect(self.refresh)
 
         # kết nối các lineEdit
         self.hien_thi_tableInfor()  #Hiển thị dữ liệu ban đầu
 
     def open_add_income(self):
-        while True:
-            if self.kiem_tra_thang():
-                dialog = Income_dialog(self.processer, self)
-                if dialog.exec():
-                    self.hien_thi_tableInfor()
+        if not self.kiem_tra_thang():
+            return      
+
+        dialog = Income_dialog(self.processer, self)
+        if dialog.exec():
+            self.hien_thi_tableInfor()
 
 
     def open_add_saving(self):
@@ -133,6 +135,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.txtExpense.setText(str(data['Expense']['total'])); self.txtExpense.setReadOnly(True)
 
         self.hien_thi_tableThisMonth()
+        self.processer.luu_safety_box()
+        self.hien_thi_safety_box()
 
     def hien_thi_tableThisMonth(self):
         data = self.processer.tinh_tong()
@@ -163,37 +167,40 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
 
     def kiem_tra_thang(self):
-        data = self.processer.lay_du_lieu_tu_json()
-        saved_months = data['Months']
+        month = self.txtMonth.text().strip()    # strip để loại bỏ khoảng trống
 
-        month = self.txtMonth.text().strip()
-
-        # kiểm tra người dùng đã nhập đủ chưa
-        if "-" not in month or len(month) != 7:
-            QMessageBox.warning(self, "Error", "Vui lòng nhập đúng định dạng MM-YYYY!")
-            return False, None
 
         try:
             m, y = month.split("-")
             m = int(m)
             y = int(y)
-        except ValueError:
-            QMessageBox.warning(self, "Error", "Tháng không hợp lệ!")
-            return False, None
+        except:
+            QMessageBox.warning(self, "Error", "Định dạng phải là MM-YYYY!")
+            return False
 
-        # kiểm tra tháng 1–12
         if m < 1 or m > 12:
-            QMessageBox.warning(self, "Error", "Vui lòng nhập tháng từ 01 đến 12!")
-            return False, None
+            QMessageBox.warning(self, "Error", "Tháng phải từ 01 đến 12!")
+            return False
 
-        # kiểm tra tháng đã tồn tại
-        if month in saved_months:
-            QMessageBox.warning(self, "Error", "Tháng đã tồn tại, vui lòng nhập tháng khác!")
-            return False, "Existed"
+        data = self.processer.lay_du_lieu_tu_json()
 
-        return True, month
+        if month in data["Months"]:
+            QMessageBox.warning(self, "Error", "Tháng đã tồn tại!")
+            return False
+
+        return True     # nghĩa là tháng chưa có trong danh sách
 
 
     # refresh table và lưu dữ liệu vào json
     def refresh(self):
-        pass
+        if self.kiem_tra_thang():
+            month = self.txtMonth.text()
+
+        self.processer.luu_thang(month)  # thiếu lưu safety box r
+        self.tableInfor.clearContents()
+        self.tableThisMonth.clearContents()
+
+    def hien_thi_safety_box(self):
+        data = self.processer.lay_du_lieu_tu_json()
+        x = data['Safety Box']
+        self.txtSafetyBox.setText(str(x))

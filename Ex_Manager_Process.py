@@ -16,11 +16,7 @@ class Ex_Manager_Process:
                 return False, "Số tiền phải là số dương!"
 
             # kiểm tra định dạng ngày
-            try:
-                datetime.strptime(tr_date, "%d/%m/%Y")
-            except ValueError:
-                return False, "Định dạng ngày không hợp lệ! (DD/MM/YYYY)"
-
+            
             transaction = {
                 "date": tr_date,
                 "type": tr_type,
@@ -67,13 +63,34 @@ class Ex_Manager_Process:
             with open('data.json', 'r', encoding='utf8') as f:
                 data = json.load(f)
         except:
-            data = {'Safety Box': None, 'Months': {}}
+            data = {'Safety Box': 0, 'Months': {}}
 
         month_data = cls.tinh_tong()
         data['Months'][month] = month_data
 
         with open('data.json', 'w', encoding='utf8') as f:
             json.dump(data, f, ensure_ascii=False, indent=3)
+    @classmethod
+    def luu_safety_box(cls):
+        try:
+            with open('data.json', 'r', encoding='utf8') as f:
+                data = json.load(f)
+        except:
+            data = {'Safety Box': 0, 'Months': {}}
+
+        sb_amount = data['Safety Box']
+
+        month_data = cls.tinh_tong()    
+        sb_thang_nay = month_data['Income']['total'] - month_data['Expense']['total']
+        sb_amount += sb_thang_nay
+        
+        data['Safety Box'] = sb_amount
+
+        with open('data.json', 'w', encoding='utf8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=3)
+        
+        
+        
 
     @staticmethod
     def lay_du_lieu_tu_json():
@@ -81,20 +98,23 @@ class Ex_Manager_Process:
                 data = json.load(f)
         return data
 
-# if __name__ == "__main__":
-#     ex = Ex_Manager_Process()
+    
 
-#     ex.add_transaction("Income", "Salary", 1000, "07/03/2026", "Lương tháng")
-#     ex.add_transaction("Income", "Allowance", 200, "07/03/2026", "Trợ cấp")
-#     ex.add_transaction("Expense", "Food", 50, "07/03/2026", "Ăn trưa")
-#     ex.add_transaction("Expense", "Transport", 20, "07/03/2026", "Xe bus")
-#     ex.add_transaction("Saving", "Emergency", 100, "07/03/2026", "Tiết kiệm")
-#     ex.add_transaction("Saving", "Goal", 200, "09/02/2026", "Tiết kiệm")
-#     ex.add_transaction("Saving", "Goal", 1000, "09/02/2026", "Tiết kiệm")
+if __name__ == "__main__":
+    ex = Ex_Manager_Process()
 
-#     totals = Ex_Manager_Process.tinh_tong()
+    ex.add_transaction("Income", "Salary", 1000, "07/03/2026", "Lương tháng")
+    ex.add_transaction("Income", "Allowance", 200, "07/03/2026", "Trợ cấp")
+    ex.add_transaction("Expense", "Food", 50, "07/03/2026", "Ăn trưa")
+    ex.add_transaction("Expense", "Transport", 20, "07/03/2026", "Xe bus")
+    ex.add_transaction("Saving", "Emergency", 100, "07/03/2026", "Tiết kiệm")
+    ex.add_transaction("Saving", "Goal", 200, "09/02/2026", "Tiết kiệm")
+    ex.add_transaction("Saving", "Goal", 1000, "09/02/2026", "Tiết kiệm")
 
-#     # print(totals)
+    totals = Ex_Manager_Process.tinh_tong()
+
+# print(totals)
+Ex_Manager_Process.luu_safety_box()
 
 # month = "2026-4"
 # Ex_Manager_Process.luu_thang(month)

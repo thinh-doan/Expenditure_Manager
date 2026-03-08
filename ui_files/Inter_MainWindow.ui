@@ -69,7 +69,7 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tabTransactions">
        <attribute name="title">
@@ -657,7 +657,7 @@
             </item>
            </layout>
           </widget>
-          <widget class="QTableWidget" name="tableThisMonth_2">
+          <widget class="QTableWidget" name="tablePreviousMonths">
            <property name="enabled">
             <bool>true</bool>
            </property>
@@ -822,7 +822,7 @@
      <x>0</x>
      <y>0</y>
      <width>986</width>
-     <height>21</height>
+     <height>27</height>
     </rect>
    </property>
   </widget>
