@@ -1,6 +1,7 @@
 # chứa các hàm xử lý dữ liệu
 
 from datetime import datetime
+import json
 
 class Ex_Manager_Process:
 
@@ -58,8 +59,27 @@ class Ex_Manager_Process:
                     totals[tr_type][tr_category] += tr_amount
 
         return totals
-    
-    
+
+    #Lưu trữ có 2 phần: safety box và các tháng
+    @classmethod
+    def luu_thang(cls, month):
+        try:
+            with open('data.json', 'r', encoding='utf8') as f:
+                data = json.load(f)
+        except:
+            data = {'Safety Box': None, 'Months': {}}
+
+        month_data = cls.tinh_tong()
+        data['Months'][month] = month_data
+
+        with open('data.json', 'w', encoding='utf8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=3)
+
+    @staticmethod
+    def lay_du_lieu_tu_json():
+        with open('data.json', 'r', encoding='utf8') as f:
+                data = json.load(f)
+        return data
 
 # if __name__ == "__main__":
 #     ex = Ex_Manager_Process()
@@ -70,7 +90,11 @@ class Ex_Manager_Process:
 #     ex.add_transaction("Expense", "Transport", 20, "07/03/2026", "Xe bus")
 #     ex.add_transaction("Saving", "Emergency", 100, "07/03/2026", "Tiết kiệm")
 #     ex.add_transaction("Saving", "Goal", 200, "09/02/2026", "Tiết kiệm")
+#     ex.add_transaction("Saving", "Goal", 1000, "09/02/2026", "Tiết kiệm")
 
 #     totals = Ex_Manager_Process.tinh_tong()
 
-#     print(totals)
+#     # print(totals)
+
+# month = "2026-4"
+# Ex_Manager_Process.luu_thang(month)

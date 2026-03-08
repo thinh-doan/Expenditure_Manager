@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>983</width>
+    <width>986</width>
     <height>763</height>
    </rect>
   </property>
@@ -19,7 +19,7 @@
    <string>Expenditure Manager</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout_3">
+   <layout class="QVBoxLayout" name="verticalLayout_3" stretch="1,20">
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
@@ -69,7 +69,7 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tabTransactions">
        <attribute name="title">
@@ -84,6 +84,22 @@
              <layout class="QHBoxLayout" name="horizontalLayout_2">
               <item>
                <spacer name="horizontalSpacer_4">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="txtMonth"/>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_18">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
@@ -390,269 +406,409 @@
        <attribute name="title">
         <string>Data</string>
        </attribute>
-       <layout class="QGridLayout" name="gridLayout_8">
-        <item row="3" column="0">
-         <spacer name="verticalSpacer_5">
+       <layout class="QHBoxLayout" name="horizontalLayout_8">
+        <item>
+         <spacer name="horizontalSpacer_15">
           <property name="orientation">
-           <enum>Qt::Vertical</enum>
+           <enum>Qt::Horizontal</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>20</width>
-            <height>40</height>
+            <width>129</width>
+            <height>20</height>
            </size>
           </property>
          </spacer>
         </item>
-        <item row="2" column="0">
-         <layout class="QHBoxLayout" name="horizontalLayout_4">
-          <item>
-           <widget class="QTableWidget" name="tableThisMonth">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>440</width>
-              <height>540</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>440</width>
-              <height>540</height>
-             </size>
+        <item>
+         <widget class="QSplitter" name="splitter_2">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <widget class="QWidget" name="layoutWidget">
+           <layout class="QHBoxLayout" name="horizontalLayout_7">
+            <item>
+             <spacer name="horizontalSpacer_13">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_5">
+              <property name="font">
+               <font>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>This Month</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_14">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QTableWidget" name="tableThisMonth">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>440</width>
+             <height>540</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="layoutDirection">
+            <enum>Qt::LeftToRight</enum>
+           </property>
+           <attribute name="horizontalHeaderDefaultSectionSize">
+            <number>315</number>
+           </attribute>
+           <attribute name="verticalHeaderDefaultSectionSize">
+            <number>30</number>
+           </attribute>
+           <row>
+            <property name="text">
+             <string>1. Income</string>
             </property>
             <property name="font">
              <font>
-              <pointsize>10</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
              </font>
             </property>
-            <property name="layoutDirection">
-             <enum>Qt::LeftToRight</enum>
-            </property>
-            <attribute name="horizontalHeaderDefaultSectionSize">
-             <number>315</number>
-            </attribute>
-            <attribute name="verticalHeaderDefaultSectionSize">
-             <number>30</number>
-            </attribute>
-            <row>
-             <property name="text">
-              <string>1. Income</string>
-             </property>
-             <property name="font">
-              <font>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-            </row>
-            <row>
-             <property name="text">
-              <string>Salary</string>
-             </property>
-             <property name="textAlignment">
-              <set>AlignLeading|AlignVCenter</set>
-             </property>
-            </row>
-            <row>
-             <property name="text">
-              <string>Allowance</string>
-             </property>
-            </row>
-            <row>
-             <property name="text">
-              <string>Full-time job</string>
-             </property>
-            </row>
-            <row>
-             <property name="text">
-              <string>Full-time job</string>
-             </property>
-            </row>
-            <row>
-             <property name="text">
-              <string>Other</string>
-             </property>
-            </row>
-            <row>
-             <property name="text">
-              <string>2. Saving</string>
-             </property>
-             <property name="font">
-              <font>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-            </row>
-            <row>
-             <property name="text">
-              <string>Emergency</string>
-             </property>
-            </row>
-            <row>
-             <property name="text">
-              <string>Goal</string>
-             </property>
-            </row>
-            <row>
-             <property name="text">
-              <string>General</string>
-             </property>
-            </row>
-            <row>
-             <property name="text">
-              <string>Other</string>
-             </property>
-            </row>
-            <row>
-             <property name="text">
-              <string>3. Expense</string>
-             </property>
-             <property name="font">
-              <font>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-            </row>
-            <row>
-             <property name="text">
-              <string>Food</string>
-             </property>
-            </row>
-            <row>
-             <property name="text">
-              <string>Transport</string>
-             </property>
-            </row>
-            <row>
-             <property name="text">
-              <string>Education</string>
-             </property>
-            </row>
-            <row>
-             <property name="text">
-              <string>Entertainment</string>
-             </property>
-            </row>
-            <row>
-             <property name="text">
-              <string>Other</string>
-             </property>
-            </row>
-            <column>
-             <property name="text">
-              <string>Amount</string>
-             </property>
-             <property name="font">
-              <font>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-            </column>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item row="1" column="0">
-         <layout class="QHBoxLayout" name="horizontalLayout_7">
-          <item>
-           <spacer name="horizontalSpacer_13">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_5">
+           </row>
+           <row>
             <property name="text">
-             <string>This month</string>
+             <string>Salary</string>
             </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_14">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
+            <property name="textAlignment">
+             <set>AlignLeading|AlignVCenter</set>
             </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
+           </row>
+           <row>
+            <property name="text">
+             <string>Allowance</string>
             </property>
-           </spacer>
-          </item>
-         </layout>
+           </row>
+           <row>
+            <property name="text">
+             <string>Full-time job</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>Full-time job</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>Other</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>2. Saving</string>
+            </property>
+            <property name="font">
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>Emergency</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>Goal</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>General</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>Other</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>3. Expense</string>
+            </property>
+            <property name="font">
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>Food</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>Transport</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>Education</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>Entertainment</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>Other</string>
+            </property>
+           </row>
+          </widget>
+         </widget>
         </item>
-        <item row="2" column="1">
-         <layout class="QHBoxLayout" name="horizontalLayout_18">
-          <item>
-           <spacer name="horizontalSpacer_39">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_15">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_40">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </item>
-        <item row="0" column="1">
-         <spacer name="verticalSpacer_6">
+        <item>
+         <spacer name="horizontalSpacer_16">
           <property name="orientation">
-           <enum>Qt::Vertical</enum>
+           <enum>Qt::Horizontal</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>20</width>
-            <height>40</height>
+            <width>130</width>
+            <height>20</height>
            </size>
           </property>
          </spacer>
+        </item>
+        <item>
+         <widget class="QSplitter" name="splitter">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <widget class="QWidget" name="layoutWidget">
+           <layout class="QHBoxLayout" name="horizontalLayout_4">
+            <item>
+             <widget class="QLineEdit" name="txtSearch">
+              <property name="minimumSize">
+               <size>
+                <width>161</width>
+                <height>20</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>8</pointsize>
+               </font>
+              </property>
+              <property name="accessibleName">
+               <string/>
+              </property>
+              <property name="placeholderText">
+               <string comment="vd: 2026-2, 2026-3" extracomment="vd: 2026-2, 2026-3"/>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btnSearch">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>20</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Tìm kiếm</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QTableWidget" name="tableThisMonth_2">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>440</width>
+             <height>540</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="layoutDirection">
+            <enum>Qt::LeftToRight</enum>
+           </property>
+           <attribute name="horizontalHeaderDefaultSectionSize">
+            <number>315</number>
+           </attribute>
+           <attribute name="verticalHeaderDefaultSectionSize">
+            <number>30</number>
+           </attribute>
+           <row>
+            <property name="text">
+             <string>1. Income</string>
+            </property>
+            <property name="font">
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>Salary</string>
+            </property>
+            <property name="textAlignment">
+             <set>AlignLeading|AlignVCenter</set>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>Allowance</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>Full-time job</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>Full-time job</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>Other</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>2. Saving</string>
+            </property>
+            <property name="font">
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>Emergency</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>Goal</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>General</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>Other</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>3. Expense</string>
+            </property>
+            <property name="font">
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>Food</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>Transport</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>Education</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>Entertainment</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>Other</string>
+            </property>
+           </row>
+          </widget>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_17">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>129</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_6">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -665,8 +821,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>983</width>
-     <height>27</height>
+     <width>986</width>
+     <height>21</height>
     </rect>
    </property>
   </widget>
