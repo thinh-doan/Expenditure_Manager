@@ -62,13 +62,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # kết nối nút
         self.btnAdd_Income.clicked.connect(self.open_add_income)
-        self.btnAdd_Saving.clicked.connect(self.open_add_saving)
         self.btnAdd_Expense.clicked.connect(self.open_add_expense)
         self.btnSummarize.clicked.connect(self.summarize)
         self.btnRefresh.clicked.connect(self.refresh)
 
         # kết nối các lineEdit
         self.hien_thi_tableInfor()  #Hiển thị dữ liệu ban đầu
+        self.txtMonth.setInputMask("00-0000")
 
     def open_add_income(self):
         if not self.kiem_tra_thang():
@@ -132,7 +132,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         for row, (tr_type, ctg) in row_map.items():     #items dùng để lấy cả key và value
                 amount = data[tr_type][ctg]
-                self.tableThisMonth.setItem(row, 0, QTableWidgetItem(f"{amount:.2f}"))
+                self.tableThisMonth.setItem(row, 0, QTableWidgetItem(f"{float(amount):.2f}"))
 
 
     def kiem_tra_thang(self):
