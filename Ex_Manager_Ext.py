@@ -68,6 +68,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # kết nối các lineEdit
         self.hien_thi_tableInfor()  #Hiển thị dữ liệu ban đầu
+        self.txtMonth.setInputMask("00-0000")
 
     def open_add_income(self):
         dialog = Income_dialog(self.processer, self)
@@ -123,7 +124,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         }
 
         for row, (tr_type, ctg) in row_map.items():     #items dùng để lấy cả key và value
-                amount = data.get(tr_type, {}).get(ctg, 0)
+                amount = data[tr_type][ctg]
                 self.tableThisMonth.setItem(row, 0, QTableWidgetItem(f"{amount:.2f}"))
 
 

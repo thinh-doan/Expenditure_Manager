@@ -109,7 +109,15 @@ class Ex_Manager_Process:
 #     ex.add_transaction("Saving", "Emergency", 100, "07/03/2026", "Tiết kiệm")
 #     ex.add_transaction("Saving", "Goal", 200, "09/02/2026", "Tiết kiệm")
 #     ex.add_transaction("Saving", "Goal", 1000, "09/02/2026", "Tiết kiệm")
+#     ex.add_transaction("Income", "Salary", 1000, "07/03/2026", "Lương tháng")
+#     ex.add_transaction("Income", "Allowance", 200, "07/03/2026", "Trợ cấp")
+#     ex.add_transaction("Expense", "Food", 50, "07/03/2026", "Ăn trưa")
+#     ex.add_transaction("Expense", "Transport", 20, "07/03/2026", "Xe bus")
+#     ex.add_transaction("Saving", "Emergency", 100, "07/03/2026", "Tiết kiệm")
+#     ex.add_transaction("Saving", "Goal", 200, "09/02/2026", "Tiết kiệm")
+#     ex.add_transaction("Saving", "Goal", 1000, "09/02/2026", "Tiết kiệm")
 
+#     totals = Ex_Manager_Process.tinh_tong()
 #     totals = Ex_Manager_Process.tinh_tong()
 
 # # print(totals)
