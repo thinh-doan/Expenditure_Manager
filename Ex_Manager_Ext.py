@@ -65,6 +65,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.btnAdd_Expense.clicked.connect(self.open_add_expense)
         self.btnSummarize.clicked.connect(self.summarize)
         self.btnRefresh.clicked.connect(self.refresh)
+        self.btnSearch.clicked.connect(self.tim_kiem_thang)
+        self.btnCompare.clicked.connect(self.compare_months)
 
         # kết nối các lineEdit
         self.hien_thi_tableInfor()  #Hiển thị dữ liệu ban đầu
@@ -90,18 +92,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.tableInfor.setItem(row, 3, QTableWidgetItem(str(trans["amount"])))
             self.tableInfor.setItem(row, 4, QTableWidgetItem(trans["note"]))
 
-    #Thiếu safety box
     def summarize(self):
         data = self.processer.tinh_tong()
 
         self.txtIncome.setText(str(data["Income"]["total"])); self.txtIncome.setReadOnly(True)
         self.txtExpense.setText(str(data["Expense"]["total"])); self.txtExpense.setReadOnly(True)
 
-        self.hien_thi_tableThisMonth()
+        #Hiển thị table This Month
+        self.hien_thi_table(self.tableThisMonth, data)
 
-    def hien_thi_tableThisMonth(self):
-        data = self.processer.tinh_tong()
-        
+    def hien_thi_table(self, table, data):
         row_map = {
             0: ("Income", "total"),
             1: ("Income", "Salary"),
@@ -122,39 +122,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             16: ("Expense", "Other")
         }
 
+        # Đảm bảo table có đủ row và cột
+        table.setRowCount(len(row_map)) # reset table, xóa toàn bộ row cũ, tọa đúng số row mới
+        table.setColumnCount(1) # đảm bảo cột tồn tại và tạo 1 cột
+        table.setHorizontalHeaderLabels(["Amount"])
+
         for row, (tr_type, ctg) in row_map.items():     #items dùng để lấy cả key và value
             amount = data.get(tr_type, {}).get(ctg, 0)
-            self.tableThisMonth.setItem(row, 0, QTableWidgetItem(f"{amount:.2f}"))
+            table.setItem(row, 0, QTableWidgetItem(f"{amount:.2f}"))
 
-
-    # def kiem_tra_thang(self):
-    #     month = self.txtMonth.text().strip()    # strip để loại bỏ khoảng trống
-
-
-    #     try:
-    #         m, y = month.split("-")
-    #         m = int(m)
-    #         y = int(y)
-    #     except:
-    #         QMessageBox.warning(self, "Error", "Định dạng phải là MM-YYYY!")
-    #         return False
-
-    #     if m < 1 or m > 12:
-    #         QMessageBox.warning(self, "Error", "Tháng phải từ 01 đến 12!")
-    #         return False
-
-    #     data = self.processer.lay_du_lieu_tu_json()
-
-    #     if month in data["Months"]:
-    #         QMessageBox.warning(self, "Error", "Tháng đã tồn tại!")
-    #         return False
-
-    #     return True     # nghĩa là tháng chưa có trong danh sách
-
-
-    # refresh table và lưu dữ liệu vào json
     def refresh(self):
-        month = "02-2026"
+        month = self.processer.lay_thang_tu_transactions()
 
         self.processer.luu_thang(month)
         self.processer.luu_safety_box()
@@ -167,7 +145,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.txtIncome.clear()
         self.txtSaving.clear()
         self.txtExpense.clear()
-
+        self.txtComment.clear()
 
 
         self.hien_thi_safety_box()
@@ -176,3 +154,38 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         data = self.processer.lay_du_lieu_tu_json()
         sb = data.get("Safety Box", 0)  #.get() lấy giá trị của key, nếu key không tồn tại thì trả về default value
         self.txtSafetyBox.setText(str(sb))
+
+    def tim_kiem_thang(self, month):
+        month = self.txtSearch.text().strip()
+        if not month:
+            QMessageBox.warning(self, "Error", "Vui lòng nhập tháng!")
+            return
+
+        # Kiểm tra tháng có tồn tại trong JSON không
+        if self.processer.kiem_tra_thang_tu_json(month):
+            json_data = self.processer.lay_du_lieu_tu_json()
+            data = json_data["Months"][month]
+            self.hien_thi_table(self.tablePreviousMonths, data)
+        else:
+            QMessageBox.warning(self, "Error", "Tháng chưa được lưu!")
+    
+    def compare_months(self):
+        """So sánh dữ liệu 2 tháng gần nhất"""
+        result = self.processer.compare_month()
+        
+        if not result["status"]:
+            QMessageBox.warning(self, "Thông báo", result["message"])
+            return
+        
+        # Tạo tin nhắn so sánh
+        comp = result["comparison"]
+        message = f"So sánh: Tháng {comp['Income']['last_month']} vs Tháng {comp['Income']['this_month']}\n\n"
+        
+        for section, data in comp.items():
+            message += f"{section}:\n"
+            message += f"  Tháng trước: {data['last_value']:,.2f}\n"
+            message += f"  Tháng này:  {data['this_value']:,.2f}\n"
+            message += f"  Thay đổi:   {data['change_value']:+,.2f}\n"
+            message += f"  {data['change_type']}: {abs(data['percent_change']):.2f}%\n\n"
+        
+        self.txtComment.setPlainText(message)
