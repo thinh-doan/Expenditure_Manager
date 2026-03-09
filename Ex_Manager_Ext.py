@@ -6,8 +6,6 @@ from Ex_Manager_Process import Ex_Manager_Process
 from Inter_MainWindow import Ui_MainWindow
 from Inter_Expense import Ui_Dialog as ExpenseUI
 from Inter_Income import Ui_Dialog as IncomeUI
-from Inter_Saving import Ui_Dialog as SavingUI
-
 
 class Income_dialog(QDialog, IncomeUI):
     def __init__(self, processer, parent=None):
@@ -29,29 +27,7 @@ class Income_dialog(QDialog, IncomeUI):
             self.accept()
         else:
             QMessageBox.warning(self, "Error", message)
-
-class Saving_dialog(QDialog, SavingUI):
-    def __init__(self, processer, parent=None):
-        super().__init__(parent)
-        self.setupUi(self)
-        self.processer = processer
-
-        self.btnOK.clicked.connect(self.add_saving)
-        self.btnCancel.clicked.connect(self.reject)
-
-    def add_saving(self):
-        tr_date = self.txtDate.text()
-        tr_category = self.cbbCategory.currentText()
-        tr_amount = self.txtAmount.text()
-        tr_note = self.txtNote.text()
         
-        success, message = self.processer.add_transaction("Saving", tr_category,tr_amount, tr_date, tr_note)
-        if success:
-            self.accept()   # gửi signal tới exec() để đóng chương trình
-        else:
-            QMessageBox.warning(self, "Error", message)
-        
-
 class Expense_dialog(QDialog, ExpenseUI):
 
     def __init__(self, processer, parent=None):
@@ -101,13 +77,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         dialog = Income_dialog(self.processer, self)
         if dialog.exec():
             self.hien_thi_tableInfor()
-
-
-    def open_add_saving(self):
-        if self.kiem_tra_thang():
-            dialog = Saving_dialog(self.processer, self)
-            if dialog.exec():
-                self.hien_thi_tableInfor()
 
     def open_add_expense(self):
         if self.kiem_tra_thang():
