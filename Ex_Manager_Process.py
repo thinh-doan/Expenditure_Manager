@@ -131,7 +131,7 @@ class Ex_Manager_Process:
 #     totals = Ex_Manager_Process.tinh_tong()
 
 # print(totals)
-Ex_Manager_Process.luu_safety_box()
+# Ex_Manager_Process.luu_safety_box()
 
 # month = "2026-4"
 # Ex_Manager_Process.luu_thang(month)

@@ -68,7 +68,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # kết nối các lineEdit
         self.hien_thi_tableInfor()  #Hiển thị dữ liệu ban đầu
-        self.txtMonth.setInputMask("00-0000")
 
     def open_add_income(self):
         if not self.kiem_tra_thang():
