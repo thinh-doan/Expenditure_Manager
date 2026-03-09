@@ -59,62 +59,63 @@ class Ex_Manager_Process:
     #Lưu trữ có 2 phần: safety box và các tháng
     @classmethod
     def luu_thang(cls, month):
-        try:
-            with open('data.json', 'r', encoding='utf8') as f:
-                data = json.load(f)
-        except:
-            data = {'Safety Box': 0, 'Months': {}}
-
+        data = cls.lay_du_lieu_tu_json()
         month_data = cls.tinh_tong()
         data['Months'][month] = month_data
 
         with open('data.json', 'w', encoding='utf8') as f:
-            json.dump(data, f, ensure_ascii=False, indent=3)
+            json.dump('data', f, ensure_ascii=None, indent= 3)
+
     @classmethod
     def luu_safety_box(cls):
-        try:
-            with open('data.json', 'r', encoding='utf8') as f:
-                data = json.load(f)
-        except:
-            data = {'Safety Box': 0, 'Months': {}}
 
-        sb_amount = data['Safety Box']
+        data = cls.lay_du_lieu_tu_json()
 
-        month_data = cls.tinh_tong()    
-        sb_thang_nay = month_data['Income']['total'] - month_data['Expense']['total']
-        sb_amount += sb_thang_nay
-        
-        data['Safety Box'] = sb_amount
+        sb_truoc = data['Safety Box']
+
+        month_data = cls.tinh_tong()
+
+        income = month_data['Income']['total']
+        expense = month_data['Expense']['total']
+
+        sb_moi = sb_truoc + income - expense
+
+        data['Safety Box'] = sb_moi
 
         with open('data.json', 'w', encoding='utf8') as f:
             json.dump(data, f, ensure_ascii=False, indent=3)
         
         
-        
-
     @staticmethod
     def lay_du_lieu_tu_json():
-        with open('data.json', 'r', encoding='utf8') as f:
-                data = json.load(f)
+        try:
+            with open('data.json', 'r', encoding='utf8') as f:
+                    data = json.load(f)
+        except FileExistsError:
+            data = {'Safety Box': 0, 'Months': {}}
         return data
+    
+    @classmethod
+    def reset_transactions(cls):
+        cls.ds = []
 
     
 
-if __name__ == "__main__":
-    ex = Ex_Manager_Process()
+# if __name__ == "__main__":
+#     ex = Ex_Manager_Process()
 
-    ex.add_transaction("Income", "Salary", 1000, "07/03/2026", "Lương tháng")
-    ex.add_transaction("Income", "Allowance", 200, "07/03/2026", "Trợ cấp")
-    ex.add_transaction("Expense", "Food", 50, "07/03/2026", "Ăn trưa")
-    ex.add_transaction("Expense", "Transport", 20, "07/03/2026", "Xe bus")
-    ex.add_transaction("Saving", "Emergency", 100, "07/03/2026", "Tiết kiệm")
-    ex.add_transaction("Saving", "Goal", 200, "09/02/2026", "Tiết kiệm")
-    ex.add_transaction("Saving", "Goal", 1000, "09/02/2026", "Tiết kiệm")
+#     ex.add_transaction("Income", "Salary", 1000, "07/03/2026", "Lương tháng")
+#     ex.add_transaction("Income", "Allowance", 200, "07/03/2026", "Trợ cấp")
+#     ex.add_transaction("Expense", "Food", 50, "07/03/2026", "Ăn trưa")
+#     ex.add_transaction("Expense", "Transport", 20, "07/03/2026", "Xe bus")
+#     ex.add_transaction("Saving", "Emergency", 100, "07/03/2026", "Tiết kiệm")
+#     ex.add_transaction("Saving", "Goal", 200, "09/02/2026", "Tiết kiệm")
+#     ex.add_transaction("Saving", "Goal", 1000, "09/02/2026", "Tiết kiệm")
 
-    totals = Ex_Manager_Process.tinh_tong()
+#     totals = Ex_Manager_Process.tinh_tong()
 
-# print(totals)
-Ex_Manager_Process.luu_safety_box()
+# # print(totals)
+# Ex_Manager_Process.luu_safety_box()
 
 # month = "2026-4"
 # Ex_Manager_Process.luu_thang(month)
