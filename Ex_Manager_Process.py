@@ -39,19 +39,19 @@ class Ex_Manager_Process:
     @classmethod
     def tinh_tong(cls):     # Tính tổng của tất các type và category
         totals = {
-            'Income': {'total': 0, 'Salary': 0, 'Allowance': 0, 'Part-time job': 0, 'Full-time job': 0, 'Other': 0},
-            'Saving': {'total': 0, 'Emergency': 0, 'Goal': 0, 'General': 0, 'Other': 0},
-            'Expense': {'total': 0, 'Food': 0, 'Transport': 0, 'Entertainment': 0, 'Education': 0, 'Other': 0}
+            "Income": {"total": 0, "Salary": 0, "Allowance": 0, "Part-time job": 0, "Full-time job": 0, "Other": 0},
+            "Expense": {"total": 0, "Food": 0, "Transport": 0, "Entertainment": 0, "Education": 0, "Other": 0},
+            "Saving": {}
         }
 
         for trans in cls.ds:
-            tr_type = trans['type']
-            tr_amount = trans['amount']
-            tr_category = trans['category']
+            tr_type = trans["type"]
+            tr_amount = trans["amount"]
+            tr_category = trans["category"]
 
-            if trans['type'] in totals:
-                totals[tr_type]['total'] += tr_amount
-                if trans['category'] in totals[tr_type]:
+            if trans["type"] in totals:
+                totals[tr_type]["total"] += tr_amount
+                if trans["category"] in totals[tr_type]:
                     totals[tr_type][tr_category] += tr_amount
 
         return totals
@@ -61,45 +61,43 @@ class Ex_Manager_Process:
     def luu_thang(cls, month):
         data = cls.lay_du_lieu_tu_json()
         month_data = cls.tinh_tong()
-        data['Months'][month] = month_data
+        data["Months"][month] = month_data
 
-        with open('data.json', 'w', encoding='utf8') as f:
-            json.dump('data', f, ensure_ascii=None, indent= 3)
+        with open("data.json", "w", encoding="utf8") as f:
+            json.dump(data, f, ensure_ascii=None, indent= 3)
 
     @classmethod
     def luu_safety_box(cls):
 
         data = cls.lay_du_lieu_tu_json()
 
-        sb_truoc = data['Safety Box']
+        sb_truoc = data["Safety Box"]
 
         month_data = cls.tinh_tong()
 
-        income = month_data['Income']['total']
-        expense = month_data['Expense']['total']
+        income = month_data["Income"]["total"]
+        expense = month_data["Expense"]["total"]
 
         sb_moi = sb_truoc + income - expense
 
-        data['Safety Box'] = sb_moi
+        data["Safety Box"] = sb_moi
 
-        with open('data.json', 'w', encoding='utf8') as f:
+        with open("data.json", "w", encoding="utf8") as f:
             json.dump(data, f, ensure_ascii=False, indent=3)
-        
         
     @staticmethod
     def lay_du_lieu_tu_json():
         try:
-            with open('data.json', 'r', encoding='utf8') as f:
-                    data = json.load(f)
-        except FileExistsError:
-            data = {'Safety Box': 0, 'Months': {}}
+            with open("data.json", "r", encoding="utf8") as f:
+                data = json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError):
+            data = {"Safety Box": 0, "Months": {}}
+
         return data
     
     @classmethod
     def reset_transactions(cls):
-        cls.ds = []
-
-    
+        cls.ds = []    
 
 # if __name__ == "__main__":
 #     ex = Ex_Manager_Process()

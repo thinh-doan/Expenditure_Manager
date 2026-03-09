@@ -1,0 +1,24 @@
+{
+   "Safety Box": 123.0,
+   "Months": {
+      "02-2026": {
+         "Income": {
+            "total": 121.0,
+            "Salary": 121.0,
+            "Allowance": 0,
+            "Part-time job": 0,
+            "Full-time job": 0,
+            "Other": 0
+         },
+         "Expense": {
+            "total": 0,
+            "Food": 0,
+            "Transport": 0,
+            "Entertainment": 0,
+            "Education": 0,
+            "Other": 0
+         },
+         "Saving": {}
+      }
+   }
+}

@@ -84,18 +84,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         transactions = self.processer.get_transactions()
         for row, trans in enumerate(transactions):
             self.tableInfor.insertRow(row)
-            self.tableInfor.setItem(row, 0, QTableWidgetItem(trans['date']))
-            self.tableInfor.setItem(row, 1, QTableWidgetItem(trans['type']))
-            self.tableInfor.setItem(row, 2, QTableWidgetItem(trans['category']))
-            self.tableInfor.setItem(row, 3, QTableWidgetItem(str(trans['amount'])))
-            self.tableInfor.setItem(row, 4, QTableWidgetItem(trans['note']))
+            self.tableInfor.setItem(row, 0, QTableWidgetItem(trans["date"]))
+            self.tableInfor.setItem(row, 1, QTableWidgetItem(trans["type"]))
+            self.tableInfor.setItem(row, 2, QTableWidgetItem(trans["category"]))
+            self.tableInfor.setItem(row, 3, QTableWidgetItem(str(trans["amount"])))
+            self.tableInfor.setItem(row, 4, QTableWidgetItem(trans["note"]))
 
     #Thiếu safety box
     def summarize(self):
         data = self.processer.tinh_tong()
 
-        self.txtIncome.setText(str(data['Income']['total'])); self.txtIncome.setReadOnly(True)
-        self.txtExpense.setText(str(data['Expense']['total'])); self.txtExpense.setReadOnly(True)
+        self.txtIncome.setText(str(data["Income"]["total"])); self.txtIncome.setReadOnly(True)
+        self.txtExpense.setText(str(data["Expense"]["total"])); self.txtExpense.setReadOnly(True)
 
         self.hien_thi_tableThisMonth()
 
@@ -103,23 +103,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         data = self.processer.tinh_tong()
         
         row_map = {
-            0: ('Income', 'total'),
-            1: ('Income', 'Salary'),
-            2: ('Income', 'Allowance'),
-            3: ('Income', 'Full-time job'),
-            4: ('Income', 'Part-time job'),
-            5: ('Income', 'Other'),
-            6: ('Saving', 'total'),
-            7: ('Saving', 'Emergency'),
-            8: ('Saving', 'Goal'),
-            9: ('Saving', 'General'),
-            10: ('Saving', 'Other'),
-            11: ('Expense', 'total'),
-            12: ('Expense', 'Food'),
-            13: ('Expense', 'Transport'),
-            14: ('Expense', 'Education'),
-            15: ('Expense', 'Entertainment'),
-            16: ('Expense', 'Other')
+            0: ("Income", "total"),
+            1: ("Income", "Salary"),
+            2: ("Income", "Allowance"),
+            3: ("Income", "Full-time job"),
+            4: ("Income", "Part-time job"),
+            5: ("Income", "Other"),
+            6: ("Saving", "total"),
+            7: ("Saving", "Emergency"),
+            8: ("Saving", "Goal"),
+            9: ("Saving", "General"),
+            10: ("Saving", "Other"),
+            11: ("Expense", "total"),
+            12: ("Expense", "Food"),
+            13: ("Expense", "Transport"),
+            14: ("Expense", "Education"),
+            15: ("Expense", "Entertainment"),
+            16: ("Expense", "Other")
         }
 
         for row, (tr_type, ctg) in row_map.items():     #items dùng để lấy cả key và value
@@ -161,13 +161,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.processer.reset_transactions()
 
-        # reset table
+        # reset table & summarize
         self.tableInfor.setRowCount(0)
         self.tableThisMonth.clearContents()
+        self.txtIncome.clear()
+        self.txtSaving.clear()
+        self.txtExpense.clear()
+
+
 
         self.hien_thi_safety_box()
 
     def hien_thi_safety_box(self):
         data = self.processer.lay_du_lieu_tu_json()
-        sb = data.get('Safety Box', 0)  #.get() lấy giá trị của key, nếu key không tồn tại thì trả về default value
+        sb = data.get("Safety Box", 0)  #.get() lấy giá trị của key, nếu key không tồn tại thì trả về default value
         self.txtSafetyBox.setText(str(sb))
