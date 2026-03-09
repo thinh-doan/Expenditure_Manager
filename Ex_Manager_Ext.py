@@ -70,105 +70,109 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.hien_thi_tableInfor()  #Hiển thị dữ liệu ban đầu
 
     def open_add_income(self):
-        if not self.kiem_tra_thang():
-            return      
-
         dialog = Income_dialog(self.processer, self)
         if dialog.exec():
             self.hien_thi_tableInfor()
 
     def open_add_expense(self):
-        if self.kiem_tra_thang():
-            dialog = Expense_dialog(self.processer, self)
-            if dialog.exec():
-                self.hien_thi_tableInfor()
+        dialog = Expense_dialog(self.processer, self)
+        if dialog.exec():
+            self.hien_thi_tableInfor()
 
     def hien_thi_tableInfor(self):
         self.tableInfor.setRowCount(0)
         transactions = self.processer.get_transactions()
         for row, trans in enumerate(transactions):
             self.tableInfor.insertRow(row)
-            self.tableInfor.setItem(row, 0, QTableWidgetItem(trans['date']))
-            self.tableInfor.setItem(row, 1, QTableWidgetItem(trans['type']))
-            self.tableInfor.setItem(row, 2, QTableWidgetItem(trans['category']))
-            self.tableInfor.setItem(row, 3, QTableWidgetItem(str(trans['amount'])))
-            self.tableInfor.setItem(row, 4, QTableWidgetItem(trans['note']))
+            self.tableInfor.setItem(row, 0, QTableWidgetItem(trans["date"]))
+            self.tableInfor.setItem(row, 1, QTableWidgetItem(trans["type"]))
+            self.tableInfor.setItem(row, 2, QTableWidgetItem(trans["category"]))
+            self.tableInfor.setItem(row, 3, QTableWidgetItem(str(trans["amount"])))
+            self.tableInfor.setItem(row, 4, QTableWidgetItem(trans["note"]))
 
     #Thiếu safety box
     def summarize(self):
         data = self.processer.tinh_tong()
 
-        self.txtIncome.setText(str(data['Income']['total'])); self.txtIncome.setReadOnly(True)
-        self.txtSaving.setText(str(data['Saving']['total'])); self.txtSaving.setReadOnly(True)
-        self.txtExpense.setText(str(data['Expense']['total'])); self.txtExpense.setReadOnly(True)
+        self.txtIncome.setText(str(data["Income"]["total"])); self.txtIncome.setReadOnly(True)
+        self.txtExpense.setText(str(data["Expense"]["total"])); self.txtExpense.setReadOnly(True)
 
         self.hien_thi_tableThisMonth()
-        self.processer.luu_safety_box()
-        self.hien_thi_safety_box()
 
     def hien_thi_tableThisMonth(self):
         data = self.processer.tinh_tong()
         
         row_map = {
-            0: ('Income', 'total'),
-            1: ('Income', 'Salary'),
-            2: ('Income', 'Allowance'),
-            3: ('Income', 'Full-time job'),
-            4: ('Income', 'Part-time job'),
-            5: ('Income', 'Other'),
-            6: ('Saving', 'total'),
-            7: ('Saving', 'Emergency'),
-            8: ('Saving', 'Goal'),
-            9: ('Saving', 'General'),
-            10: ('Saving', 'Other'),
-            11: ('Expense', 'total'),
-            12: ('Expense', 'Food'),
-            13: ('Expense', 'Transport'),
-            14: ('Expense', 'Education'),
-            15: ('Expense', 'Entertainment'),
-            16: ('Expense', 'Other')
+            0: ("Income", "total"),
+            1: ("Income", "Salary"),
+            2: ("Income", "Allowance"),
+            3: ("Income", "Full-time job"),
+            4: ("Income", "Part-time job"),
+            5: ("Income", "Other"),
+            6: ("Saving", "total"),
+            7: ("Saving", "Emergency"),
+            8: ("Saving", "Goal"),
+            9: ("Saving", "General"),
+            10: ("Saving", "Other"),
+            11: ("Expense", "total"),
+            12: ("Expense", "Food"),
+            13: ("Expense", "Transport"),
+            14: ("Expense", "Education"),
+            15: ("Expense", "Entertainment"),
+            16: ("Expense", "Other")
         }
 
         for row, (tr_type, ctg) in row_map.items():     #items dùng để lấy cả key và value
-                amount = data[tr_type][ctg]
-                self.tableThisMonth.setItem(row, 0, QTableWidgetItem(f"{float(amount):.2f}"))
+            amount = data.get(tr_type, {}).get(ctg, 0)
+            self.tableThisMonth.setItem(row, 0, QTableWidgetItem(f"{amount:.2f}"))
 
 
-    def kiem_tra_thang(self):
-        month = self.txtMonth.text().strip()    # strip để loại bỏ khoảng trống
+    # def kiem_tra_thang(self):
+    #     month = self.txtMonth.text().strip()    # strip để loại bỏ khoảng trống
 
 
-        try:
-            m, y = month.split("-")
-            m = int(m)
-            y = int(y)
-        except:
-            QMessageBox.warning(self, "Error", "Định dạng phải là MM-YYYY!")
-            return False
+    #     try:
+    #         m, y = month.split("-")
+    #         m = int(m)
+    #         y = int(y)
+    #     except:
+    #         QMessageBox.warning(self, "Error", "Định dạng phải là MM-YYYY!")
+    #         return False
 
-        if m < 1 or m > 12:
-            QMessageBox.warning(self, "Error", "Tháng phải từ 01 đến 12!")
-            return False
+    #     if m < 1 or m > 12:
+    #         QMessageBox.warning(self, "Error", "Tháng phải từ 01 đến 12!")
+    #         return False
 
-        data = self.processer.lay_du_lieu_tu_json()
+    #     data = self.processer.lay_du_lieu_tu_json()
 
-        if month in data["Months"]:
-            QMessageBox.warning(self, "Error", "Tháng đã tồn tại!")
-            return False
+    #     if month in data["Months"]:
+    #         QMessageBox.warning(self, "Error", "Tháng đã tồn tại!")
+    #         return False
 
-        return True     # nghĩa là tháng chưa có trong danh sách
+    #     return True     # nghĩa là tháng chưa có trong danh sách
 
 
     # refresh table và lưu dữ liệu vào json
     def refresh(self):
-        if self.kiem_tra_thang():
-            month = self.txtMonth.text()
+        month = "02-2026"
 
-        self.processer.luu_thang(month)  # thiếu lưu safety box r
-        self.tableInfor.clearContents()
+        self.processer.luu_thang(month)
+        self.processer.luu_safety_box()
+
+        self.processer.reset_transactions()
+
+        # reset table & summarize
+        self.tableInfor.setRowCount(0)
         self.tableThisMonth.clearContents()
+        self.txtIncome.clear()
+        self.txtSaving.clear()
+        self.txtExpense.clear()
+
+
+
+        self.hien_thi_safety_box()
 
     def hien_thi_safety_box(self):
         data = self.processer.lay_du_lieu_tu_json()
-        x = data['Safety Box']
-        self.txtSafetyBox.setText(str(x))
+        sb = data.get("Safety Box", 0)  #.get() lấy giá trị của key, nếu key không tồn tại thì trả về default value
+        self.txtSafetyBox.setText(str(sb))

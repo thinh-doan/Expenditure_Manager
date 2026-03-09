@@ -1,55 +1,24 @@
 {
-   "Safety Box": 831.0,
+   "Safety Box": 135.0,
    "Months": {
-      "12-2023": {
+      "02-2026": {
          "Income": {
-            "total": 12.0,
-            "Salary": 12.0,
+            "total": 13.0,
+            "Salary": 13.0,
             "Allowance": 0,
             "Part-time job": 0,
             "Full-time job": 0,
             "Other": 0
          },
-         "Saving": {
-            "total": 0,
-            "Emergency": 0,
-            "Goal": 0,
-            "General": 0,
-            "Other": 0
-         },
          "Expense": {
-            "total": 0,
-            "Food": 0,
+            "total": 1.0,
+            "Food": 1.0,
             "Transport": 0,
             "Entertainment": 0,
             "Education": 0,
             "Other": 0
-         }
-      },
-      "03-2026": {
-         "Income": {
-            "total": 123.0,
-            "Salary": 123.0,
-            "Allowance": 0,
-            "Part-time job": 0,
-            "Full-time job": 0,
-            "Other": 0
          },
-         "Saving": {
-            "total": 0,
-            "Emergency": 0,
-            "Goal": 0,
-            "General": 0,
-            "Other": 0
-         },
-         "Expense": {
-            "total": 0,
-            "Food": 0,
-            "Transport": 0,
-            "Entertainment": 0,
-            "Education": 0,
-            "Other": 0
-         }
+         "Saving": {}
       }
    }
 }
