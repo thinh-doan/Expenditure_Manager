@@ -131,6 +131,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if dialog.exec():
             self.hien_thi_tableInfor()
 
+    def format_number(self, value):
+    """Format số với dấu phẩy ở tableInfor"""
+        return '{:,}'.format(int(float(value)))
+
     def hien_thi_tableInfor(self):
         self.tableInfor.setRowCount(0)
         transactions = self.processer.get_transactions()
@@ -139,15 +143,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.tableInfor.setItem(row, 0, QTableWidgetItem(trans["date"]))
             self.tableInfor.setItem(row, 1, QTableWidgetItem(trans["type"]))
             self.tableInfor.setItem(row, 2, QTableWidgetItem(trans["category"]))
-            self.tableInfor.setItem(row, 3, QTableWidgetItem(str(trans["amount"])))
+            self.tableInfor.setItem(row, 3, QTableWidgetItem(self.format_number(trans["amount"])))
             self.tableInfor.setItem(row, 4, QTableWidgetItem(trans["note"]))
 
     def summarize(self):
         data = self.processer.tinh_tong()
 
-        self.txtIncome.setText(str(data["Income"]["total"])); self.txtIncome.setReadOnly(True)
-        self.txtExpense.setText(str(data["Expense"]["total"])); self.txtExpense.setReadOnly(True)
-        self.txtSaving.setText(str(data["Saving"]["total"])); self.txtSaving.setReadOnly(True)
+        self.txtIncome.setText(self.format_number(data["Income"]["total"])); self.txtIncome.setReadOnly(True)
+        self.txtExpense.setText(self.format_number(data["Expense"]["total"])); self.txtExpense.setReadOnly(True)
+        self.txtSaving.setText(self.format_number(data["Saving"]["total"])); self.txtSaving.setReadOnly(True)
 
         #Hiển thị table This Month
         self.hien_thi_table(self.tableThisMonth, data)
@@ -201,7 +205,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def hien_thi_safety_box(self):
         data = self.processer.lay_du_lieu_tu_json()
         sb = data.get("Safety Box", 0)  #.get() lấy giá trị của key, nếu key không tồn tại thì trả về default value
-        self.txtSafetyBox.setText(str(sb))
+        self.txtSafetyBox.setText(self.format_number(sb))
 
     def tim_kiem_thang(self, month):
         month = self.txtSearch.text().strip()
@@ -231,9 +235,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         for section, data in comp.items():
             message += f"{section}:\n"
-            message += f"  Tháng trước: {data['last_value']:,.2f}\n"
-            message += f"  Tháng này:  {data['this_value']:,.2f}\n"
-            message += f"  Thay đổi:   {data['change_value']:+,.2f}\n"
+            message += f"  Tháng trước: {self.format_number(data['last_value'])}\n"
+            message += f"  Tháng này:  {self.format_number(data['this_value'])}\n"
+            message += f"  Thay đổi:   {self.format_number(data['change_value'])}\n"
             message += f"  {data['change_type']}: {abs(data['percent_change']):.2f}%\n\n"
         
         self.txtComment.setPlainText(message)
