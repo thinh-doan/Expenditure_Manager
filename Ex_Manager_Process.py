@@ -66,7 +66,7 @@ class Ex_Manager_Process:
         data["Months"][month] = month_data
 
         with open("data.json", "w", encoding="utf8") as f:
-            json.dump(data, f, ensure_ascii=None, indent= 3)
+            json.dump(data, f, ensure_ascii=False, indent= 3)
 
     @classmethod
     def luu_safety_box(cls):
@@ -99,8 +99,9 @@ class Ex_Manager_Process:
 
     @classmethod
     def lay_thang_tu_transactions(cls):
-        data = cls.ds
-        month = data[0]["date"].strip()
+        if not cls.ds:
+            return None # tránh việc ds rỗng gây crash
+        month = cls.ds[0]["date"].strip()
         
         d, m, y = month.split("/")
         month = f"{m}/{y}"
@@ -117,7 +118,7 @@ class Ex_Manager_Process:
     def compare_month(cls):
         """So sánh dữ liệu từ 2 tháng gần nhất"""
         data = cls.lay_du_lieu_tu_json()
-        months = list(data["Months"].keys())    
+        months = list(data["Months"].keys())
 
         if len(months) < 2:
             return {
@@ -125,40 +126,33 @@ class Ex_Manager_Process:
                 "message": "Không đủ dữ liệu để so sánh (cần ít nhất 2 tháng)",
                 "comparison": None
             }
-        
-        # Sắp xếp theo tháng và lấy 2 tháng gần nhất
-        months.sort()
+
+        # Sắp xếp tháng theo thời gian
+        months.sort(key=lambda x: datetime.strptime(x, "%m/%Y"))
+
         last_month = months[-2]
         this_month = months[-1]
-        
-        # Lấy dữ liệu từ hai tháng
+
         last_data = data["Months"][last_month]
         this_data = data["Months"][this_month]
-        
-        # Hàm lấy tổng
+
         def get_total(d, key):
             return d.get(key, {}).get("total", 0)
-        
-        # So sánh 3 loại: Income, Saving, Expense
+
         sections = ["Income", "Saving", "Expense"]
         comparison = {}
-        
+
         for section in sections:
             last_value = get_total(last_data, section)
             this_value = get_total(this_data, section)
-            
-            # Tính phần trăm thay đổi
+
             if last_value == 0:
-                if this_value == 0:
-                    percent_change = 0
-                else:
-                    percent_change = 100  # Tăng từ 0
+                percent_change = 0 if this_value == 0 else 100
             else:
                 percent_change = ((this_value - last_value) / last_value) * 100
-            
-            # Xác định tăng hay giảm
+
             change_type = "Tăng" if percent_change >= 0 else "Giảm"
-            
+
             comparison[section] = {
                 "last_month": last_month,
                 "last_value": last_value,
@@ -168,35 +162,12 @@ class Ex_Manager_Process:
                 "change_type": change_type,
                 "change_value": this_value - last_value
             }
-        
+
         return {
             "status": True,
             "message": f"So sánh giữa tháng {last_month} và {this_month}",
             "comparison": comparison
         }
-    
-    @classmethod
-    def get_comparison_summary(cls):
-        """Trả về tóm tắt kết quả so sánh dạng text"""
-        result = cls.compare_month()
-        
-        if not result["status"]:
-            return result["message"]
-        
-        comp = result["comparison"]
-        summary = f"\n{'='*60}\n"
-        summary += f"So sánh: Tháng {comp['Income']['last_month']} vs Tháng {comp['Income']['this_month']}\n"
-        summary += f"{'='*60}\n\n"
-        
-        for section, data in comp.items():
-            summary += f"{section}:\n"
-            summary += f"  Tháng trước: {data['last_value']:,.2f}\n"
-            summary += f"  Tháng này:  {data['this_value']:,.2f}\n"
-            summary += f"  Thay đổi:   {data['change_value']:+,.2f}\n"
-            summary += f"  {data['change_type']}: {abs(data['percent_change']):.2f}%\n\n"
-        
-        summary += f"{'='*60}\n"
-        return summary
 
 # if __name__ == "__main__":
 #     ex = Ex_Manager_Process()

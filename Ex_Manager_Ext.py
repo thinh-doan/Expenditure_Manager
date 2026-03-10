@@ -132,7 +132,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.hien_thi_tableInfor()
 
     def format_number(self, value):
-    """Format số với dấu phẩy ở tableInfor"""
         return '{:,}'.format(int(float(value)))
 
     def hien_thi_tableInfor(self):
@@ -184,21 +183,22 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             table.setItem(row, 0, QTableWidgetItem(f"{amount:.2f}"))
 
     def refresh(self):
+        if not self.processer.get_transactions():
+            return
+
         month = self.processer.lay_thang_tu_transactions()
 
         self.processer.luu_thang(month)
         self.processer.luu_safety_box()
-
         self.processer.reset_transactions()
 
-        # reset table & summarize
         self.tableInfor.setRowCount(0)
         self.tableThisMonth.clearContents()
+
         self.txtIncome.clear()
         self.txtSaving.clear()
         self.txtExpense.clear()
         self.txtComment.clear()
-
 
         self.hien_thi_safety_box()
 
