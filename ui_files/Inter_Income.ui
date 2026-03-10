@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>300</height>
+    <height>362</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -71,6 +71,9 @@
      </item>
      <item>
       <widget class="QLineEdit" name="txtDate"/>
+     </item>
+     <item>
+      <widget class="QCalendarWidget" name="calendarWidget"/>
      </item>
      <item>
       <widget class="QLabel" name="label_4">

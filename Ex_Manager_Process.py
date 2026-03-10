@@ -54,6 +54,8 @@ class Ex_Manager_Process:
                 if trans["category"] in totals[tr_type]:
                     totals[tr_type][tr_category] += tr_amount
 
+            totals['Saving']['total'] = totals['Income']['total'] - totals['Expense']['total']
+        
         return totals
 
     #Lưu trữ có 2 phần: safety box và các tháng
@@ -72,14 +74,10 @@ class Ex_Manager_Process:
         data = cls.lay_du_lieu_tu_json()
 
         sb_truoc = data["Safety Box"]
-
         month_data = cls.tinh_tong()
+        saving = month_data["Saving"]["total"]
 
-        income = month_data["Income"]["total"]
-        expense = month_data["Expense"]["total"]
-
-        sb_moi = sb_truoc + income - expense
-
+        sb_moi = sb_truoc + saving
         data["Safety Box"] = sb_moi
 
         with open("data.json", "w", encoding="utf8") as f:
@@ -119,8 +117,8 @@ class Ex_Manager_Process:
     def compare_month(cls):
         """So sánh dữ liệu từ 2 tháng gần nhất"""
         data = cls.lay_du_lieu_tu_json()
-        months = list(data["Months"].keys())
-        
+        months = list(data["Months"].keys())    
+
         if len(months) < 2:
             return {
                 "status": False,

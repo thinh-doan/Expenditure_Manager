@@ -14,12 +14,35 @@ class Income_dialog(QDialog, IncomeUI):
         self.processer = processer
         self.btnOK.clicked.connect(self.add_income)
         self.btnCancel.clicked.connect(self.reject)
-        
 
+        # Kết nối sự kiện định dạng tiền
+        self.txtAmount.textChanged.connect(self.format_amount)
+
+        # Kết nối sự kiện thay đổi ngày trên Calendar
+        self.calendarWidget.clicked.connect(self.update_date_display)
+        self.txtDate.setReadOnly(True)
+
+        # Cập nhật lần đầu tiên
+        self.update_date_display()
+
+    def update_date_display(self):
+        """Cập nhật QLineEdit hiển thị ngày từ Calendar"""
+        selected_date = self.calendarWidget.selectedDate()
+        date_str = selected_date.toString("dd/MM/yyyy")
+        self.txtDate.setText(date_str)
+
+    def format_amount(self):
+        """Tự động thêm dấu phẩy khi nhập tiền"""
+        text = self.txtAmount.text()
+        text = text.replace(',', '')  # Xóa dấu phẩy cũ
+
+        if text and text.isdigit():  # Nếu là số
+            formatted = '{:,}'.format(int(text))
+            self.txtAmount.setText(formatted)
     def add_income(self):
         tr_date = self.txtDate.text()
         tr_category = self.cbbCategory.currentText()
-        tr_amount = self.txtAmount.text()
+        tr_amount = self.txtAmount.text().replace(',', '')  # Xóa dấu phẩy trước gửi
         tr_note = self.txtNote.text()
 
         success, message = self.processer.add_transaction("Income", tr_category, tr_amount, tr_date, tr_note)
@@ -27,7 +50,8 @@ class Income_dialog(QDialog, IncomeUI):
             self.accept()
         else:
             QMessageBox.warning(self, "Error", message)
-        
+
+
 class Expense_dialog(QDialog, ExpenseUI):
 
     def __init__(self, processer, parent=None):
@@ -39,10 +63,35 @@ class Expense_dialog(QDialog, ExpenseUI):
         self.btnOK.clicked.connect(self.add_expense)
         self.btnCancel.clicked.connect(self.reject)
 
+        # Kết nối sự kiện định dạng tiền
+        self.txtAmount.textChanged.connect(self.format_amount)
+
+        # Kết nối sự kiện thay đổi ngày trên Calendar
+        self.calendarWidget.clicked.connect(self.update_date_display)
+        self.txtDate.setReadOnly(True)
+
+        # Cập nhật lần đầu tiên
+        self.update_date_display()
+
+    def update_date_display(self):
+        """Cập nhật QLineEdit hiển thị ngày từ Calendar"""
+        selected_date = self.calendarWidget.selectedDate()
+        date_str = selected_date.toString("dd/MM/yyyy")
+        self.txtDate.setText(date_str)
+
+    def format_amount(self):
+        """Tự động thêm dấu phẩy khi nhập tiền"""
+        text = self.txtAmount.text()
+        text = text.replace(',', '')  # Xóa dấu phẩy cũ
+
+        if text and text.isdigit():  # Nếu là số
+            formatted = '{:,}'.format(int(text))
+            self.txtAmount.setText(formatted)
+
     def add_expense(self):
 
         tr_category = self.cbbCategory.currentText()
-        tr_amount = self.txtAmount.text()
+        tr_amount = self.txtAmount.text().replace(',', '')
         tr_date = self.txtDate.text()
         tr_note = self.txtNote.text()
 
@@ -52,6 +101,7 @@ class Expense_dialog(QDialog, ExpenseUI):
             self.accept()
         else:
             QMessageBox.warning(self, "Error", message)
+
 
 class MainWindow(QMainWindow, Ui_MainWindow):
 
@@ -97,6 +147,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.txtIncome.setText(str(data["Income"]["total"])); self.txtIncome.setReadOnly(True)
         self.txtExpense.setText(str(data["Expense"]["total"])); self.txtExpense.setReadOnly(True)
+        self.txtSaving.setText(str(data["Saving"]["total"])); self.txtSaving.setReadOnly(True)
 
         #Hiển thị table This Month
         self.hien_thi_table(self.tableThisMonth, data)
@@ -109,17 +160,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             3: ("Income", "Full-time job"),
             4: ("Income", "Part-time job"),
             5: ("Income", "Other"),
-            6: ("Saving", "total"),
-            7: ("Saving", "Emergency"),
-            8: ("Saving", "Goal"),
-            9: ("Saving", "General"),
-            10: ("Saving", "Other"),
-            11: ("Expense", "total"),
-            12: ("Expense", "Food"),
-            13: ("Expense", "Transport"),
-            14: ("Expense", "Education"),
-            15: ("Expense", "Entertainment"),
-            16: ("Expense", "Other")
+            6: ("Expense", "total"),
+            7: ("Expense", "Food"),
+            8: ("Expense", "Transport"),
+            9: ("Expense", "Education"),
+            10: ("Expense", "Entertainment"),
+            11: ("Expense", "Other"),
+            12: ("Saving", "total"),
+
         }
 
         # Đảm bảo table có đủ row và cột
@@ -189,3 +237,5 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             message += f"  {data['change_type']}: {abs(data['percent_change']):.2f}%\n\n"
         
         self.txtComment.setPlainText(message)
+
+    
