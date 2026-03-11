@@ -117,7 +117,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.btnCompare.clicked.connect(self.compare_months)
 
         # kết nối các lineEdit
-        self.hien_thi_tableInfor()  #Hiển thị dữ liệu ban đầu : trống
+        # self.hien_thi_tableInfor()  #Hiển thị dữ liệu ban đầu : trống
 
     def open_add_income(self):
         dialog = Income_dialog(self.processer, self)
