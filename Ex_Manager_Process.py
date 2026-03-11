@@ -7,10 +7,10 @@ class Ex_Manager_Process:
 
     ds = []
 
-    def add_transaction(self, tr_type, tr_category, tr_amount, tr_date, tr_note):
+    def add_transaction(self, tr_type, tr_category, tr_amount, date_str, tr_note):
 
         try:
-            tr_amount = float(tr_amount)
+            tr_amount = int(tr_amount)
 
             if tr_amount <= 0:
                 return False, "Số tiền phải là số dương!"
@@ -18,7 +18,7 @@ class Ex_Manager_Process:
             # kiểm tra định dạng ngày
             
             transaction = {
-                "date": tr_date,
+                "date": date_str,
                 "type": tr_type,
                 "category": tr_category,
                 "amount": tr_amount,
@@ -39,23 +39,21 @@ class Ex_Manager_Process:
     @classmethod
     def tinh_tong(cls):     # Tính tổng của tất các type và category
         totals = {
-            "Income": {"total": 0, "Salary": 0, "Allowance": 0, "Part-time job": 0, "Full-time job": 0, "Other": 0},
+            "Income": {"total": 0, "Salary": 0, "Allowance": 0, "Full-time job": 0, "Part-time job": 0, "Other": 0},
             "Expense": {"total": 0, "Food": 0, "Transport": 0, "Entertainment": 0, "Education": 0, "Other": 0},
             "Saving": {"total": 0}
         }
 
         for trans in cls.ds:
             tr_type = trans["type"]
-            tr_amount = trans["amount"]
             tr_category = trans["category"]
+            tr_amount = trans["amount"]
 
             if trans["type"] in totals:
                 totals[tr_type]["total"] += tr_amount
                 if trans["category"] in totals[tr_type]:
                     totals[tr_type][tr_category] += tr_amount
-
-            totals['Saving']['total'] = totals['Income']['total'] - totals['Expense']['total']
-        
+        totals['Saving']['total'] = totals['Income']['total'] - totals['Expense']['total']
         return totals
 
     #Lưu trữ có 2 phần: safety box và các tháng
@@ -119,40 +117,46 @@ class Ex_Manager_Process:
         """So sánh dữ liệu từ 2 tháng gần nhất"""
         data = cls.lay_du_lieu_tu_json()
         months = list(data["Months"].keys())
-
         if len(months) < 2:
             return {
                 "status": False,
                 "message": "Không đủ dữ liệu để so sánh (cần ít nhất 2 tháng)",
                 "comparison": None
             }
-
-        # Sắp xếp tháng theo thời gian
-        months.sort(key=lambda x: datetime.strptime(x, "%m/%Y"))
-
+        
+        # Sắp xếp theo tháng và lấy 2 tháng gần nhất
+        months.sort()
         last_month = months[-2]
         this_month = months[-1]
-
+        
+        # Lấy dữ liệu từ hai tháng
         last_data = data["Months"][last_month]
         this_data = data["Months"][this_month]
-
+        
+        # Hàm lấy tổng
         def get_total(d, key):
             return d.get(key, {}).get("total", 0)
-
-        sections = ["Income", "Saving", "Expense"]
+        
+        # So sánh 3 loại: Income, Saving, Expense
+        sections = ["Income", "Expense", "Saving"]
         comparison = {}
-
+        
         for section in sections:
             last_value = get_total(last_data, section)
             this_value = get_total(this_data, section)
-
+            
+            # Tính phần trăm thay đổi
             if last_value == 0:
-                percent_change = 0 if this_value == 0 else 100
+                if this_value == 0:
+                    percent_change = 0
+                else:
+                    percent_change = 100  # Tăng từ 0
             else:
                 percent_change = ((this_value - last_value) / last_value) * 100
-
+            
+            # Xác định tăng hay giảm
             change_type = "Tăng" if percent_change >= 0 else "Giảm"
-
+            
             comparison[section] = {
                 "last_month": last_month,
                 "last_value": last_value,
@@ -162,7 +166,7 @@ class Ex_Manager_Process:
                 "change_type": change_type,
                 "change_value": this_value - last_value
             }
-
+        
         return {
             "status": True,
             "message": f"So sánh giữa tháng {last_month} và {this_month}",

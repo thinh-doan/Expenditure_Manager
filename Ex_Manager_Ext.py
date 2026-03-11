@@ -132,6 +132,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.hien_thi_tableInfor()
 
     def format_number(self, value):
+        """Format số với dấu phẩy ở tableInfor"""
         return '{:,}'.format(int(float(value)))
 
     def hien_thi_tableInfor(self):
@@ -169,8 +170,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             9: ("Expense", "Education"),
             10: ("Expense", "Entertainment"),
             11: ("Expense", "Other"),
-            12: ("Saving", "total"),
-
+            12: ("Saving", "total")
         }
 
         # Đảm bảo table có đủ row và cột
@@ -179,13 +179,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         table.setHorizontalHeaderLabels(["Amount"])
 
         for row, (tr_type, ctg) in row_map.items():     #items dùng để lấy cả key và value
-            amount = data.get(tr_type, {}).get(ctg, 0)
-            table.setItem(row, 0, QTableWidgetItem(f"{amount:.2f}"))
+            amount = data[tr_type][ctg]         # chú ý xem có bị lỗi không
+            table.setItem(row, 0, QTableWidgetItem(f"{self.format_number(amount)}"))
 
     def refresh(self):
-        if not self.processer.get_transactions():
-            return
-
         month = self.processer.lay_thang_tu_transactions()
 
         self.processer.luu_thang(month)
