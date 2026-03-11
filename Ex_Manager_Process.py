@@ -7,6 +7,7 @@ class Ex_Manager_Process:
 
     ds = []
 
+    # --- Nhập dữ liệu, thao tác với transaction ---
     def add_transaction(self, tr_type, tr_category, tr_amount, date_str, tr_note):
 
         try:
@@ -37,6 +38,12 @@ class Ex_Manager_Process:
         return cls.ds
 
     @classmethod
+    def reset_transactions(cls):
+        cls.ds = []
+
+
+    # --- Xử lý dữ liệu từ list transactions ---
+    @classmethod
     def tinh_tong(cls):     # Tính tổng của tất các type và category
         totals = {
             "Income": {"total": 0, "Salary": 0, "Allowance": 0, "Full-time job": 0, "Part-time job": 0, "Other": 0},
@@ -56,31 +63,18 @@ class Ex_Manager_Process:
         totals['Saving']['total'] = totals['Income']['total'] - totals['Expense']['total']
         return totals
 
-    #Lưu trữ có 2 phần: safety box và các tháng
     @classmethod
-    def luu_thang(cls, month):
-        data = cls.lay_du_lieu_tu_json()
-        month_data = cls.tinh_tong()
-        data["Months"][month] = month_data
-
-        with open("data.json", "w", encoding="utf8") as f:
-            json.dump(data, f, ensure_ascii=False, indent= 3)
-
-    @classmethod
-    def luu_safety_box(cls):
-
-        data = cls.lay_du_lieu_tu_json()
-
-        sb_truoc = data["Safety Box"]
-        month_data = cls.tinh_tong()
-        saving = month_data["Saving"]["total"]
-
-        sb_moi = sb_truoc + saving
-        data["Safety Box"] = sb_moi
-
-        with open("data.json", "w", encoding="utf8") as f:
-            json.dump(data, f, ensure_ascii=False, indent=3)
+    def lay_thang_tu_transactions(cls):
+        if not cls.ds:
+            return None # tránh việc ds rỗng gây crash
         
+        month = cls.ds[0]["date"].strip()
+        d, m, y = month.split("/")
+        month = f"{m}/{y}"
+        return month
+
+
+    # --- làm việc với JSON (đọc trước - ghi sau) ---
     @staticmethod
     def lay_du_lieu_tu_json():
         try:
@@ -92,26 +86,30 @@ class Ex_Manager_Process:
         return data
     
     @classmethod
-    def reset_transactions(cls):
-        cls.ds = []
-
-    @classmethod
-    def lay_thang_tu_transactions(cls):
-        if not cls.ds:
-            return None # tránh việc ds rỗng gây crash
-        month = cls.ds[0]["date"].strip()
-        
-        d, m, y = month.split("/")
-        month = f"{m}/{y}"
-        return month
-    
-    @classmethod
     def kiem_tra_thang_tu_json(cls, month):
         data = cls.lay_du_lieu_tu_json()
         for m in data["Months"]:
             if month == m:
-                return True        
+                return True 
 
+
+    # --- Lưu dữ liệu vào JSON   
+    @classmethod
+    def luu_vao_json(cls, month):
+        data = cls.lay_du_lieu_tu_json()
+        month_data = cls.tinh_tong()
+
+        # Lưu tháng
+        data["Months"][month] = month_data
+
+        # Cập nhật safety box
+        sb_truoc = data["Safety Box"]
+        saving = month_data["Saving"]["total"]
+        data["Safety Box"] = sb_truoc + saving
+
+        with open("data.json", "w", encoding="utf8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=3)
+    # --- Chức năng Compare ---   
     @classmethod
     def compare_month(cls):
         """So sánh dữ liệu từ 2 tháng gần nhất"""

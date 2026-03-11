@@ -1,17 +1,19 @@
 # nhận nút bấm, đọc dữ liệu từ ô nhập, gọi các hàm xử lý dữ liệu
-
-from PyQt6.QtWidgets import QMainWindow, QDialog, QMessageBox, QTableWidgetItem
+from PyQt6.QtWidgets import QMainWindow, QDialog, QMessageBox, QTableWidgetItem, QInputDialog, QHeaderView
+import json
 
 from Ex_Manager_Process import Ex_Manager_Process
 from Inter_MainWindow import Ui_MainWindow
 from Inter_Expense import Ui_Dialog as ExpenseUI
 from Inter_Income import Ui_Dialog as IncomeUI
 
+
 class Income_dialog(QDialog, IncomeUI):
     def __init__(self, processer, parent=None):
         super().__init__(parent)
         self.setupUi(self)
         self.processer = processer
+
         self.btnOK.clicked.connect(self.add_income)
         self.btnCancel.clicked.connect(self.reject)
 
@@ -21,24 +23,23 @@ class Income_dialog(QDialog, IncomeUI):
         # Kết nối sự kiện thay đổi ngày trên Calendar
         self.calendarWidget.clicked.connect(self.update_date_display)
         self.txtDate.setReadOnly(True)
+        self.update_date_display() # Cập nhật lần đầu tiên
 
-        # Cập nhật lần đầu tiên
-        self.update_date_display()
-
+    # Cập nhật QLineEdit hiển thị ngày từ Calendar
     def update_date_display(self):
-        """Cập nhật QLineEdit hiển thị ngày từ Calendar"""
         selected_date = self.calendarWidget.selectedDate()
         date_str = selected_date.toString("dd/MM/yyyy")
         self.txtDate.setText(date_str)
 
+    # Tự động thêm dấu phẩy khi nhập tiền"""
     def format_amount(self):
-        """Tự động thêm dấu phẩy khi nhập tiền"""
         text = self.txtAmount.text()
         text = text.replace(',', '')  # Xóa dấu phẩy cũ
 
         if text and text.isdigit():  # Nếu là số
             formatted = '{:,}'.format(int(text))
             self.txtAmount.setText(formatted)
+
     def add_income(self):
         tr_date = self.txtDate.text()
         tr_category = self.cbbCategory.currentText()
@@ -53,11 +54,9 @@ class Income_dialog(QDialog, IncomeUI):
 
 
 class Expense_dialog(QDialog, ExpenseUI):
-
     def __init__(self, processer, parent=None):
         super().__init__(parent)
         self.setupUi(self)
-
         self.processer = processer
 
         self.btnOK.clicked.connect(self.add_expense)
@@ -69,12 +68,10 @@ class Expense_dialog(QDialog, ExpenseUI):
         # Kết nối sự kiện thay đổi ngày trên Calendar
         self.calendarWidget.clicked.connect(self.update_date_display)
         self.txtDate.setReadOnly(True)
+        self.update_date_display()    # Cập nhật lần đầu tiên
 
-        # Cập nhật lần đầu tiên
-        self.update_date_display()
-
+        #  Cập nhật QLineEdit hiển thị ngày từ Calendar
     def update_date_display(self):
-        """Cập nhật QLineEdit hiển thị ngày từ Calendar"""
         selected_date = self.calendarWidget.selectedDate()
         date_str = selected_date.toString("dd/MM/yyyy")
         self.txtDate.setText(date_str)
@@ -89,14 +86,12 @@ class Expense_dialog(QDialog, ExpenseUI):
             self.txtAmount.setText(formatted)
 
     def add_expense(self):
-
         tr_category = self.cbbCategory.currentText()
         tr_amount = self.txtAmount.text().replace(',', '')
         tr_date = self.txtDate.text()
         tr_note = self.txtNote.text()
 
         success, message = self.processer.add_transaction("Expense", tr_category, tr_amount, tr_date, tr_note)
-
         if success:
             self.accept()
         else:
@@ -104,7 +99,6 @@ class Expense_dialog(QDialog, ExpenseUI):
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
-
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
@@ -117,9 +111,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.btnRefresh.clicked.connect(self.refresh)
         self.btnSearch.clicked.connect(self.tim_kiem_thang)
         self.btnCompare.clicked.connect(self.compare_months)
+        self.btnEditSafetyBox.clicked.connect(self.edit_safety_box)
 
         # kết nối các lineEdit
         # self.hien_thi_tableInfor()  #Hiển thị dữ liệu ban đầu
+
+        # Kéo giãn bảng
+        self.tableInfor.horizontalHeader().setStretchLastSection(True)
+        self.tableThisMonth.horizontalHeader().setStretchLastSection(True)
+        self.tablePreviousMonths.horizontalHeader().setStretchLastSection(True)
+
 
     def open_add_income(self):
         dialog = Income_dialog(self.processer, self)
@@ -135,6 +136,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         """Format số với dấu phẩy ở tableInfor"""
         return '{:,}'.format(int(float(value)))
 
+    # Hiển thị các bảng
     def hien_thi_tableInfor(self):
         self.tableInfor.setRowCount(0)
         transactions = self.processer.get_transactions()
@@ -145,16 +147,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.tableInfor.setItem(row, 2, QTableWidgetItem(trans["category"]))
             self.tableInfor.setItem(row, 3, QTableWidgetItem(self.format_number(trans["amount"])))
             self.tableInfor.setItem(row, 4, QTableWidgetItem(trans["note"]))
-
-    def summarize(self):
-        data = self.processer.tinh_tong()
-
-        self.txtIncome.setText(self.format_number(data["Income"]["total"])); self.txtIncome.setReadOnly(True)
-        self.txtExpense.setText(self.format_number(data["Expense"]["total"])); self.txtExpense.setReadOnly(True)
-        self.txtSaving.setText(self.format_number(data["Saving"]["total"])); self.txtSaving.setReadOnly(True)
-
-        #Hiển thị table This Month
-        self.hien_thi_table(self.tableThisMonth, data)
 
     def hien_thi_table(self, table, data):
         row_map = {
@@ -182,11 +174,34 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             amount = data[tr_type][ctg]         # chú ý xem có bị lỗi không
             table.setItem(row, 0, QTableWidgetItem(f"{self.format_number(amount)}"))
 
+    def hien_thi_safety_box(self):
+        data = self.processer.lay_du_lieu_tu_json()
+        sb = data.get("Safety Box", 0)  #.get() lấy giá trị của key, nếu key không tồn tại thì trả về default value
+        self.txtSafetyBox.setText(self.format_number(sb))
+
+    def summarize(self):
+        data = self.processer.tinh_tong()
+
+        # kiểm tra tháng đã có dữ liệu chưa
+        if data["Expense"]["total"] + data["Income"]["total"] == 0:
+            QMessageBox.warning(self, "Error", "Vui lòng thêm một thu nhập hoặc chi tiêu!")
+            return
+
+        self.txtIncome.setText(self.format_number(data["Income"]["total"])); self.txtIncome.setReadOnly(True)
+        self.txtExpense.setText(self.format_number(data["Expense"]["total"])); self.txtExpense.setReadOnly(True)
+        self.txtSaving.setText(self.format_number(data["Saving"]["total"])); self.txtSaving.setReadOnly(True)
+        
+        #Hiển thị table This Month
+        self.hien_thi_table(self.tableThisMonth, data)
+
+
+    """"lệnh Refresh: lưu tháng và safety_box vào JSON; 
+        clear transactions, các bảng và nút bấm; 
+        hiển thị safety_box."""
     def refresh(self):
         month = self.processer.lay_thang_tu_transactions()
 
-        self.processer.luu_thang(month)
-        self.processer.luu_safety_box()
+        self.processer.luu_vao_json(month)
         self.processer.reset_transactions()
 
         self.tableInfor.setRowCount(0)
@@ -198,11 +213,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.txtComment.clear()
 
         self.hien_thi_safety_box()
-
-    def hien_thi_safety_box(self):
-        data = self.processer.lay_du_lieu_tu_json()
-        sb = data.get("Safety Box", 0)  #.get() lấy giá trị của key, nếu key không tồn tại thì trả về default value
-        self.txtSafetyBox.setText(self.format_number(sb))
 
     def tim_kiem_thang(self, month):
         month = self.txtSearch.text().strip()
@@ -218,8 +228,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             QMessageBox.warning(self, "Error", "Tháng chưa được lưu!")
     
+    def edit_safety_box(self):
+        value, ok = QInputDialog.getInt(self, "Edit Safety Box", "Nhập số tiền:", 0, 0)
+        if ok:
+            data = self.processer.lay_du_lieu_tu_json()
+            data["Safety Box"] = value
+
+            with open("data.json", "w", encoding="utf8") as f:
+                json.dump(data, f, ensure_ascii=False, indent=3)
+
+            self.txtSafetyBox.setText(self.format_number(value))
+    
+    # So sánh 2 tháng gần nhất
     def compare_months(self):
-        """So sánh dữ liệu 2 tháng gần nhất"""
         result = self.processer.compare_month()
         
         if not result["status"]:
