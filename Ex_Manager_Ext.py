@@ -177,8 +177,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         table.setHorizontalHeaderLabels(["Amount"])
 
         for row, (tr_type, ctg) in row_map.items():     #items dùng để lấy cả key và value
-            amount = data.get(tr_type, {}).get(ctg, 0)
-            table.setItem(row, 0, QTableWidgetItem(f"{amount:.2f}"))
+            amount = data.[tr_type][ctg]
+            table.setItem(row, 0, QTableWidgetItem(f"{self.format_number(amount)}"))
 
     def refresh(self):
         month = self.processer.lay_thang_tu_transactions()
