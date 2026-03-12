@@ -77,6 +77,7 @@ class Ui_MainWindow(object):
         self.tableInfor.setHorizontalHeaderItem(3, item)
         item = QtWidgets.QTableWidgetItem()
         self.tableInfor.setHorizontalHeaderItem(4, item)
+        self.tableInfor.verticalHeader().setStretchLastSection(True)
         self.verticalLayout_2.addWidget(self.tableInfor)
         self.horizontalLayout_9.addLayout(self.verticalLayout_2)
         self.verticalLayout = QtWidgets.QVBoxLayout()
@@ -159,7 +160,6 @@ class Ui_MainWindow(object):
         self.verticalLayout.setStretch(1, 3)
         self.verticalLayout.setStretch(2, 1)
         self.verticalLayout.setStretch(3, 1)
-        self.verticalLayout.setStretch(4, 10)
         self.verticalLayout.setStretch(5, 1)
         self.verticalLayout.setStretch(6, 1)
         self.horizontalLayout_9.addLayout(self.verticalLayout)
@@ -334,7 +334,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_5.setStretch(1, 15)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(parent=MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1075, 27))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1075, 26))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(parent=MainWindow)
@@ -342,7 +342,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
