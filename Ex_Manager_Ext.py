@@ -213,8 +213,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         }
 
         QLineEdit:focus{
-            border:1px solid #4CAF50;
+            border:1px solid #060e26;
         }
+
 
         /* ===== COMMENT BOX ===== */
 
@@ -228,11 +229,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         QTabWidget::pane{
             border:1px solid #ccc;
-            background-color:white;
+            background-color:#efefef;
         }
 
         QTabBar::tab{
-            background:#dcdde1;
+            background:#efefef;
             padding:8px 15px;
             border-top-left-radius:6px;
             border-top-right-radius:6px;

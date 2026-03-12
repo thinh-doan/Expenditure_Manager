@@ -3,8 +3,8 @@
    "Months": {
       "03/2026": {
          "Income": {
-            "total": 10009,
-            "Salary": 10009,
+            "total": 10000,
+            "Salary": 10000,
             "Allowance": 0,
             "Full-time job": 0,
             "Part-time job": 0,
@@ -19,7 +19,7 @@
             "Other": 0
          },
          "Saving": {
-            "total": 10009
+            "total": 10000
          }
       },
       "04/2026": {
