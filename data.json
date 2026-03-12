@@ -3,23 +3,23 @@
    "Months": {
       "03/2026": {
          "Income": {
-            "total": 2500,
-            "Salary": 1000,
+            "total": 10009,
+            "Salary": 10009,
             "Allowance": 0,
-            "Full-time job": 1500,
+            "Full-time job": 0,
             "Part-time job": 0,
             "Other": 0
          },
          "Expense": {
-            "total": 1100,
-            "Food": 300,
+            "total": 0,
+            "Food": 0,
             "Transport": 0,
-            "Entertainment": 800,
+            "Entertainment": 0,
             "Education": 0,
             "Other": 0
          },
          "Saving": {
-            "total": 1400
+            "total": 10009
          }
       },
       "04/2026": {
@@ -41,6 +41,27 @@
          },
          "Saving": {
             "total": 1700
+         }
+      },
+      "null": {
+         "Income": {
+            "total": 0,
+            "Salary": 0,
+            "Allowance": 0,
+            "Full-time job": 0,
+            "Part-time job": 0,
+            "Other": 0
+         },
+         "Expense": {
+            "total": 0,
+            "Food": 0,
+            "Transport": 0,
+            "Entertainment": 0,
+            "Education": 0,
+            "Other": 0
+         },
+         "Saving": {
+            "total": 0
          }
       }
    }

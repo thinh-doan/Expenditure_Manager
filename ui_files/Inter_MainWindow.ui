@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1005</width>
-    <height>806</height>
+    <width>1009</width>
+    <height>685</height>
    </rect>
   </property>
   <property name="font">
@@ -69,7 +69,7 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tabTransactions">
        <attribute name="title">
@@ -451,7 +451,7 @@
                </font>
               </property>
               <property name="text">
-               <string>This Month</string>
+               <string>   This Month   </string>
               </property>
              </widget>
             </item>
@@ -830,7 +830,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1005</width>
+     <width>1009</width>
      <height>27</height>
     </rect>
    </property>

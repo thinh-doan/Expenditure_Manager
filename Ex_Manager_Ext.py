@@ -1,6 +1,6 @@
 # nhận nút bấm, đọc dữ liệu từ ô nhập, gọi các hàm xử lý dữ liệu
 
-from PyQt6.QtWidgets import QMainWindow, QDialog, QMessageBox, QTableWidgetItem, QInputDialog, QSizePolicy
+from PyQt6.QtWidgets import QMainWindow, QDialog, QMessageBox, QTableWidgetItem, QInputDialog
 from PyQt6 import uic
 import json
 from PyQt6.QtGui import QIcon
@@ -139,9 +139,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setStyleSheet("""
         
         QMainWindow{
-            border-image: url(image/background2.png) 0 0 0 0 stretch stretch;
+            background-color: #B3d5f2
         }
 
+        QLabel#label_5{
+            border: 1px solid #3e5f84;
+            background-color: #4e77A7;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            qproperty-alignment: AlignCenter;                   
+        }
         QLabel{
             font-size:16px;
         }                  
@@ -150,7 +159,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         /* ===== BUTTON ===== */
 
         QPushButton{
-            background-color: #edc84c;
+            background-color: #023e73;
             color:white;
             border-radius:6px;
             padding:6px 10px;
@@ -179,15 +188,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         /* ===== TABLE ===== */
         QTableWidget{
-            background: white;
-            border:1px solid #a6a600;
+            background: #F0FBFF;
+            border:1px solid #060e26;
             gridline-color:green;
             selection-background-color:#1E88E5;
             font-size:11px;
         }
 
         QHeaderView::section{
-            background-color:#e6e600;
+            background-color:#6396Ce;
             color:white;
             padding:4px;
             border-right:2px solid #a6a600;
@@ -210,7 +219,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         /* ===== COMMENT BOX ===== */
 
         QPlainTextEdit{
-            border:1px solid #33cc33;
+            border:1px solid #060e26;
             border-radius:6px;
             background-color:white;
         }
