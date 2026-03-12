@@ -1,2 +1,2 @@
-# Expenditure_Manager
-Ứng dụng quản lý chi tiêu cá nhân
+PHẦN MỀM QUẢN LÝ CHI TIÊU CÁ NHÂN 
+EXPENDITURE MANAGER
