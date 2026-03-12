@@ -153,7 +153,7 @@ class Ex_Manager_Process:
                 percent_change = ((this_value - last_value) / last_value) * 100
             
             # Xác định tăng hay giảm
-            change_type = "Tăng" if percent_change >= 0 else "Giảm"
+            change_type = "     ↑" if percent_change >= 0 else "     ↓"
             
             comparison[section] = {
                 "last_month": last_month,

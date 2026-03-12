@@ -249,13 +249,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         # Tạo tin nhắn so sánh
         comp = result["comparison"]
-        message = f"So sánh: Tháng {comp['Income']['last_month']} vs Tháng {comp['Income']['this_month']}\n\n"
+        message = f" === Compare: {comp['Income']['last_month']} vs {comp['Income']['this_month']} === \n\n"
         
         for section, data in comp.items():
             message += f"{section}:\n"
-            message += f"  Tháng trước: {self.format_number(data['last_value'])}\n"
-            message += f"  Tháng này:  {self.format_number(data['this_value'])}\n"
-            message += f"  Thay đổi:   {self.format_number(data['change_value'])}\n"
+            message += f"  Last Month: {self.format_number(data['last_value'])}\n"
+            message += f"  This Month:  {self.format_number(data['this_value'])}\n"
+            message += f"  Change:   {self.format_number(data['change_value'])}\n"
             message += f"  {data['change_type']}: {abs(data['percent_change']):.2f}%\n\n"
         
         self.txtComment.setPlainText(message)
