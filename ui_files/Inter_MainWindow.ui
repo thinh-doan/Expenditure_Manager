@@ -69,7 +69,7 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tabTransactions">
        <attribute name="title">
@@ -152,6 +152,9 @@
             </item>
             <item>
              <widget class="QTableWidget" name="tableInfor">
+              <attribute name="verticalHeaderStretchLastSection">
+               <bool>true</bool>
+              </attribute>
               <column>
                <property name="text">
                 <string>Date</string>
@@ -182,7 +185,7 @@
            </layout>
           </item>
           <item>
-           <layout class="QVBoxLayout" name="verticalLayout" stretch="1,3,1,1,10,1,1">
+           <layout class="QVBoxLayout" name="verticalLayout" stretch="1,3,1,1,0,1,1">
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_6">
               <item>
@@ -769,7 +772,7 @@
      <x>0</x>
      <y>0</y>
      <width>1075</width>
-     <height>27</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>
