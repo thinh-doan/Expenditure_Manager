@@ -1,7 +1,5 @@
 # nhận nút bấm, đọc dữ liệu từ ô nhập, gọi các hàm xử lý dữ liệu
-
-from PyQt6.QtWidgets import QMainWindow, QDialog, QMessageBox, QTableWidgetItem, QInputDialog
-from PyQt6 import uic
+from PyQt6.QtWidgets import QMainWindow, QDialog, QMessageBox, QTableWidgetItem, QInputDialog, QHeaderView
 import json
 
 from Ex_Manager_Process import Ex_Manager_Process
@@ -21,11 +19,11 @@ class Income_dialog(QDialog, IncomeUI):
 
         # Kết nối sự kiện định dạng tiền
         self.txtAmount.textChanged.connect(self.format_amount)
-
+        """textChanged là sự kiện được kích hoạt mỗi khi nội dung của QLineEdit thay đổi. Khi người dùng nhập hoặc xóa văn bản, sự kiện này sẽ được gọi, và hàm format_amount sẽ được thực thi để tự động thêm dấu phẩy vào số tiền đang nhập."""
         # Kết nối sự kiện thay đổi ngày trên Calendar
         self.calendarWidget.clicked.connect(self.update_date_display)
-        self.txtDate.setReadOnly(True)
-        self.update_date_display() # Cập nhật lần đầu tiên
+        self.txtDate.setReadOnly(True) #khóa khung nhập ngày
+        self.update_date_display() # Cập nhật ngày hiển thị lần đầu tiên khi mở dialog
 
     # Cập nhật QLineEdit hiển thị ngày từ Calendar
     def update_date_display(self):
@@ -38,7 +36,7 @@ class Income_dialog(QDialog, IncomeUI):
         text = self.txtAmount.text()
         text = text.replace(',', '')  # Xóa dấu phẩy cũ
 
-        if text and text.isdigit():  # Nếu là số
+        if text and text.isdigit():  # Kiểm tra biến text không rỗng và chỉ chứa số
             formatted = '{:,}'.format(int(text))
             self.txtAmount.setText(formatted)
 
@@ -48,6 +46,7 @@ class Income_dialog(QDialog, IncomeUI):
         tr_amount = self.txtAmount.text().replace(',', '')  # Xóa dấu phẩy trước gửi
         tr_note = self.txtNote.text()
 
+        # gọi ađd_transaction và xử lý kết quả trả về, success là kq True/False, message là thông báo lỗi nếu có
         success, message = self.processer.add_transaction("Income", tr_category, tr_amount, tr_date, tr_note)
         if success:
             self.accept()
@@ -106,9 +105,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.processer = Ex_Manager_Process()
 
-        uic.loadUi("ui_files/Inter_MainWindow.ui", self)
-        self.setup_ui_style()
-
         # kết nối nút
         self.btnAdd_Income.clicked.connect(self.open_add_income)
         self.btnAdd_Expense.clicked.connect(self.open_add_expense)
@@ -126,110 +122,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.tableThisMonth.horizontalHeader().setStretchLastSection(True)
         self.tablePreviousMonths.horizontalHeader().setStretchLastSection(True)
 
-    def setup_ui_style(self):
-
-        self.setStyleSheet("""
-        
-        QMainWindow{
-            background-color:#00bfff;
-        }
-
-        QLabel{
-            font-size:12px;
-        }
-
-        /* ===== BUTTON ===== */
-
-        QPushButton{
-            background-color:#4CAF50;
-            color:white;
-            border-radius:6px;
-            padding:6px 10px;
-            font-weight:bold;
-        }
-
-        QPushButton:hover{
-            background-color:#43A047;
-        }
-
-        QPushButton:pressed{
-            background-color:#388E3C;
-        }
-
-        /* ===== SEARCH BUTTON ===== */
-
-        QPushButton#btnSearch{
-            background-color:#2196F3;
-        }
-
-        QPushButton#btnSearch:hover{
-            background-color:#1E88E5;
-        }
-
-        /* ===== TABLE ===== */
-
-        QTableWidget{
-            background:white;
-            border:1px solid #dcdde1;
-            gridline-color:#ecf0f1;
-            selection-background-color:#cce5ff;
-            font-size:11px;
-        }
-
-        QHeaderView::section{
-            background-color:#2f3640;
-            color:white;
-            padding:4px;
-            border:none;
-            font-weight:bold;
-        }
-
-        /* ===== INPUT BOX ===== */
-
-        QLineEdit{
-            border:1px solid #ccc;
-            border-radius:5px;
-            padding:4px;
-            background:white;
-        }
-
-        QLineEdit:focus{
-            border:1px solid #4CAF50;
-        }
-
-        /* ===== COMMENT BOX ===== */
-
-        QPlainTextEdit{
-            border:1px solid #ccc;
-            border-radius:6px;
-            background:white;
-        }
-
-        /* ===== TAB ===== */
-
-        QTabWidget::pane{
-            border:1px solid #ccc;
-            background:white;
-        }
-
-        QTabBar::tab{
-            background:#dcdde1;
-            padding:8px 15px;
-            border-top-left-radius:6px;
-            border-top-right-radius:6px;
-        }
-
-        QTabBar::tab:selected{
-            background:white;
-            font-weight:bold;
-        }
-
-        """)
 
     def open_add_income(self):
-        dialog = Income_dialog(self.processer, self)
-        if dialog.exec():
-            self.hien_thi_tableInfor()
+        dialog = Income_dialog(self.processer, self) #khởi tạo dialog, truyền processer vào để dialog có thể gọi hàm add_transaction
+        if dialog.exec(): #mở dialog và chờ người dùng tương tác, nếu người dùng nhấn OK thì exec() trả về True, còn nếu nhấn Cancel hoặc đóng dialog thì trả về False. Nếu trả về True thì gọi hàm hiện thị lại bảng thông tin để cập nhật dữ liệu mới.
+            self.hien_thi_tableInfor() #nhập dữ liệu trong ds vào bảng thông tin ở tab "Transactions"
 
     def open_add_expense(self):
         dialog = Expense_dialog(self.processer, self)
@@ -244,9 +141,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def hien_thi_tableInfor(self):
         self.tableInfor.setRowCount(0)
         transactions = self.processer.get_transactions()
-        for row, trans in enumerate(transactions):
-            self.tableInfor.insertRow(row)
-            self.tableInfor.setItem(row, 0, QTableWidgetItem(trans["date"]))
+        for row, trans in enumerate(transactions): #hàm emumerate giúp lấy cả index và giá trị của phần tử trong list
+            self.tableInfor.insertRow(row) 
+            self.tableInfor.setItem(row, 0, QTableWidgetItem(trans["date"])) #cấu trúc row; cột 0,...; thông tin hiển thị
             self.tableInfor.setItem(row, 1, QTableWidgetItem(trans["type"]))
             self.tableInfor.setItem(row, 2, QTableWidgetItem(trans["category"]))
             self.tableInfor.setItem(row, 3, QTableWidgetItem(self.format_number(trans["amount"])))
@@ -270,12 +167,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         }
 
         # Đảm bảo table có đủ row và cột
-        table.setRowCount(len(row_map)) # reset table, xóa toàn bộ row cũ, tọa đúng số row mới
+        table.setRowCount(len(row_map)) # reset table, xóa toàn bộ row cũ, tạo đúng số row mới theo độ dài row_map
         table.setColumnCount(1) # đảm bảo cột tồn tại và tạo 1 cột
-        table.setHorizontalHeaderLabels(["Amount"])
+        table.setHorizontalHeaderLabels(["Amount"]) #gắn tiêu đề Amount cho cột
 
         for row, (tr_type, ctg) in row_map.items():     #items dùng để lấy cả key và value
-            amount = data[tr_type][ctg]         # chú ý xem có bị lỗi không
+            amount = data[tr_type][ctg]         #đã gán tinh_tong cho data
             table.setItem(row, 0, QTableWidgetItem(f"{self.format_number(amount)}"))
 
     def hien_thi_safety_box(self):
@@ -285,7 +182,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def summarize(self):
         data = self.processer.tinh_tong()
-
+        month = self.processer.lay_thang_tu_transactions()
+        self.processer.luu_vao_json(month)
         # kiểm tra tháng đã có dữ liệu chưa
         if data["Expense"]["total"] + data["Income"]["total"] == 0:
             QMessageBox.warning(self, "Error", "Vui lòng thêm một thu nhập hoặc chi tiêu!")
@@ -304,8 +202,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         hiển thị safety_box."""
     def refresh(self):
         month = self.processer.lay_thang_tu_transactions()
+        if month:
+            self.processer.cap_nhat_safety_box(month)
 
-        self.processer.luu_vao_json(month)
         self.processer.reset_transactions()
 
         self.tableInfor.setRowCount(0)
@@ -353,13 +252,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         # Tạo tin nhắn so sánh
         comp = result["comparison"]
-        message = f" === Compare: {comp['Income']['last_month']} vs {comp['Income']['this_month']} === \n\n"
+        message = f"So sánh: Tháng {comp['Income']['last_month']} vs Tháng {comp['Income']['this_month']}\n\n"
         
         for section, data in comp.items():
             message += f"{section}:\n"
-            message += f"  Last Month: {self.format_number(data['last_value'])}\n"
-            message += f"  This Month:  {self.format_number(data['this_value'])}\n"
-            message += f"  Change:   {self.format_number(data['change_value'])}\n"
+            message += f"  Tháng trước: {self.format_number(data['last_value'])}\n"
+            message += f"  Tháng này:  {self.format_number(data['this_value'])}\n"
+            message += f"  Thay đổi:   {self.format_number(data['change_value'])}\n"
             message += f"  {data['change_type']}: {abs(data['percent_change']):.2f}%\n\n"
         
         self.txtComment.setPlainText(message)
