@@ -131,17 +131,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setStyleSheet("""
         
         QMainWindow{
-            background-color:#00bfff;
+            background-color:#05DBF2;
         }
 
         QLabel{
-            font-size:12px;
+            font-size:16px;
         }
 
         /* ===== BUTTON ===== */
 
         QPushButton{
-            background-color:#4CAF50;
+            background-color: #F2B3E1;
             color:white;
             border-radius:6px;
             padding:6px 10px;
@@ -149,11 +149,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         }
 
         QPushButton:hover{
-            background-color:#43A047;
+            background-color:#F2BDCB;
+            border:2px solid #F57C00;
         }
 
         QPushButton:pressed{
-            background-color:#388E3C;
+            background-color:#05DBF2;
         }
 
         /* ===== SEARCH BUTTON ===== */
@@ -169,18 +170,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         /* ===== TABLE ===== */
 
         QTableWidget{
-            background:white;
+            background:#F2BDCD;
             border:1px solid #dcdde1;
-            gridline-color:#ecf0f1;
-            selection-background-color:#cce5ff;
+            gridline-color:#O5C7F2;
+            selection-background-color:#1E88E5;
             font-size:11px;
         }
 
         QHeaderView::section{
-            background-color:#2f3640;
+            background-color:#05DBF2;
             color:white;
             padding:4px;
-            border:none;
+            # border: none;
             font-weight:bold;
         }
 
@@ -209,7 +210,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         QTabWidget::pane{
             border:1px solid #ccc;
-            background:white;
+            background-color:#B3ECF2;
         }
 
         QTabBar::tab{
@@ -225,6 +226,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         }
 
         """)
+
+        
 
     def open_add_income(self):
         dialog = Income_dialog(self.processer, self)
