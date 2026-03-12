@@ -1,7 +1,6 @@
 # nhận nút bấm, đọc dữ liệu từ ô nhập, gọi các hàm xử lý dữ liệu
 
 from PyQt6.QtWidgets import QMainWindow, QDialog, QMessageBox, QTableWidgetItem, QInputDialog
-from PyQt6 import uic
 import json
 from PyQt6.QtGui import QIcon
 from pathlib import Path

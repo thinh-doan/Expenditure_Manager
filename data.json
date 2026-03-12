@@ -11,15 +11,15 @@
             "Other": 0
          },
          "Expense": {
-            "total": 5000,
-            "Food": 5000,
+            "total": 0,
+            "Food": 0,
             "Transport": 0,
             "Entertainment": 0,
             "Education": 0,
             "Other": 0
          },
          "Saving": {
-            "total": 5000
+            "total": 10000
          }
       }
    }

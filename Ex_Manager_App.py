@@ -1,5 +1,5 @@
 #Khởi tạo giao diện
-
+from PyQt6.QtGui import QIcon
 import sys
 from Ex_Manager_Ext import MainWindow, ICON_PATH
 from PyQt6.QtWidgets import QApplication
