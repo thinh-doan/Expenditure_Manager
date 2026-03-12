@@ -126,22 +126,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.tableThisMonth.horizontalHeader().setStretchLastSection(True)
         self.tablePreviousMonths.horizontalHeader().setStretchLastSection(True)
 
+    #deco giao diện
     def setup_ui_style(self):
 
         self.setStyleSheet("""
         
         QMainWindow{
-            background-color:#05DBF2;
+            border-image: url(image/background2.png) 0 0 0 0 stretch stretch;
         }
 
         QLabel{
             font-size:16px;
-        }
+        }                  
+
 
         /* ===== BUTTON ===== */
 
         QPushButton{
-            background-color: #F2B3E1;
+            background-color: #edc84c;
             color:white;
             border-radius:6px;
             padding:6px 10px;
@@ -149,18 +151,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         }
 
         QPushButton:hover{
-            background-color:#F2BDCB;
+            background-color: #f5e19f;
             border:2px solid #F57C00;
         }
 
         QPushButton:pressed{
-            background-color:#05DBF2;
+            background-color:#ff6600;
+            border:2px solid #ff6600;
         }
 
         /* ===== SEARCH BUTTON ===== */
 
         QPushButton#btnSearch{
-            background-color:#2196F3;
+            background-color:#4da6ff;
         }
 
         QPushButton#btnSearch:hover{
@@ -168,20 +171,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         }
 
         /* ===== TABLE ===== */
-
         QTableWidget{
-            background:#F2BDCD;
-            border:1px solid #dcdde1;
-            gridline-color:#O5C7F2;
+            background: white;
+            border:1px solid #a6a600;
+            gridline-color:green;
             selection-background-color:#1E88E5;
             font-size:11px;
         }
 
         QHeaderView::section{
-            background-color:#05DBF2;
+            background-color:#e6e600;
             color:white;
             padding:4px;
-            # border: none;
+            border-right:2px solid #a6a600;
             font-weight:bold;
         }
 
@@ -201,16 +203,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         /* ===== COMMENT BOX ===== */
 
         QPlainTextEdit{
-            border:1px solid #ccc;
+            border:1px solid #33cc33;
             border-radius:6px;
-            background:white;
+            background-color:white;
         }
 
         /* ===== TAB ===== */
 
         QTabWidget::pane{
             border:1px solid #ccc;
-            background-color:#B3ECF2;
+            background-color:white;
         }
 
         QTabBar::tab{

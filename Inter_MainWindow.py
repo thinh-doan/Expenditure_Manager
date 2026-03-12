@@ -344,14 +344,11 @@ class Ui_MainWindow(object):
         self.horizontalLayout_8.setStretch(6, 1)
         self.tabWidget.addTab(self.tabData, "")
         self.verticalLayout_5.addWidget(self.tabWidget)
-        spacerItem25 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Expanding)
-        self.verticalLayout_5.addItem(spacerItem25)
         self.verticalLayout_5.setStretch(0, 1)
         self.verticalLayout_5.setStretch(1, 8)
-        self.verticalLayout_5.setStretch(2, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(parent=MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 866, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 866, 27))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(parent=MainWindow)
@@ -359,13 +356,13 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Expenditure Manager"))
-        self.label.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:18pt;\">Expenditure Manager</span></p></body></html>"))
+        self.label.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:26pt; font-weight:600;\">Expenditure Manager</span></p></body></html>"))
         self.btnAdd_Income.setText(_translate("MainWindow", "Add Income"))
         self.btnAdd_Expense.setText(_translate("MainWindow", "Add Expense "))
         item = self.tableInfor.horizontalHeaderItem(0)
