@@ -133,6 +133,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.tableThisMonth.horizontalHeader().setStretchLastSection(True)
         self.tablePreviousMonths.horizontalHeader().setStretchLastSection(True)
 
+        self.setup_ui_style()
+
     #deco giao diện
     def setup_ui_style(self):
 
