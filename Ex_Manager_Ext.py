@@ -4,11 +4,15 @@ from PyQt6.QtWidgets import QMainWindow, QDialog, QMessageBox, QTableWidgetItem,
 from PyQt6 import uic
 import json
 from PyQt6.QtGui import QIcon
+from pathlib import Path
 
 from Ex_Manager_Process import Ex_Manager_Process
 from Inter_MainWindow import Ui_MainWindow
 from Inter_Expense import Ui_Dialog as ExpenseUI
 from Inter_Income import Ui_Dialog as IncomeUI
+
+BASE_DIR = Path(__file__).resolve().parent
+ICON_PATH = BASE_DIR / "image" / "LOGO.png"
 
 class Income_dialog(QDialog, IncomeUI):
     def __init__(self, processer, parent=None):
@@ -106,6 +110,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         super().__init__(parent)
         self.setupUi(self)
         self.processer = Ex_Manager_Process()
+
+        # LOGO
+        self.setWindowTitle("Expenditure App")
+        self.setWindowIcon(QIcon(str(ICON_PATH)))
 
         # kết nối nút
         self.btnAdd_Income.clicked.connect(self.open_add_income)
