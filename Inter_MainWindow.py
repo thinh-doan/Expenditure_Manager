@@ -121,7 +121,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_11.addWidget(self.txtSafetyBox)
         self.btnEditSafetyBox = QtWidgets.QToolButton(parent=self.tabTransactions)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("ui_files\\edit.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        icon.addPixmap(QtGui.QPixmap("ui_files\\../image/edit.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         self.btnEditSafetyBox.setIcon(icon)
         self.btnEditSafetyBox.setAutoRaise(True)
         self.btnEditSafetyBox.setObjectName("btnEditSafetyBox")

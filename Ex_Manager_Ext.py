@@ -13,7 +13,7 @@ from Inter_Income import Ui_Dialog as IncomeUI
 
 
 BASE_DIR = Path(__file__).resolve().parent
-ICON_PATH = BASE_DIR / "assets" / "LOGO.png"
+ICON_PATH = BASE_DIR / "image" / "LOGO.png"
 
 
 class Income_dialog(QDialog, IncomeUI):

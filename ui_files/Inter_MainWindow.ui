@@ -271,7 +271,7 @@
                   </property>
                   <property name="icon">
                    <iconset>
-                    <normaloff>edit.png</normaloff>edit.png</iconset>
+                    <normaloff>../image/edit.png</normaloff>../image/edit.png</iconset>
                   </property>
                   <property name="autoRaise">
                    <bool>true</bool>
