@@ -3,7 +3,6 @@
 import sys
 from Ex_Manager_Ext import MainWindow
 from PyQt6.QtWidgets import QApplication
-from PyQt6.QtGui import QIcon
 
 app = QApplication(sys.argv)
 w = MainWindow()
