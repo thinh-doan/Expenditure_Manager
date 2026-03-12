@@ -1,6 +1,6 @@
 # nhận nút bấm, đọc dữ liệu từ ô nhập, gọi các hàm xử lý dữ liệu
 
-from PyQt6.QtWidgets import QMainWindow, QDialog, QMessageBox, QTableWidgetItem, QInputDialog
+from PyQt6.QtWidgets import QMainWindow, QDialog, QMessageBox, QTableWidgetItem, QInputDialog, QSizePolicy
 from PyQt6 import uic
 import json
 
@@ -362,7 +362,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             message += f"{section}:\n"
             message += f"  Last Month: {self.format_number(data['last_value'])}\n"
             message += f"  This Month:  {self.format_number(data['this_value'])}\n"
-            message += f"  Change:   {self.format_number(data['change_value'])}\n"
+            message += f"  Difference:   {self.format_number(data['change_value'])}\n"
             message += f"  {data['change_type']}: {abs(data['percent_change']):.2f}%\n\n"
         
         self.txtComment.setPlainText(message)

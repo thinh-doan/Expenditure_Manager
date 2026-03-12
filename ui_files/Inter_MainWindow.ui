@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1075</width>
-    <height>846</height>
+    <width>866</width>
+    <height>690</height>
    </rect>
   </property>
   <property name="font">
@@ -19,7 +19,7 @@
    <string>Expenditure Manager</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout_5" stretch="1,15">
+   <layout class="QVBoxLayout" name="verticalLayout_5" stretch="1,8,1">
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
@@ -401,7 +401,7 @@
        <attribute name="title">
         <string>Data</string>
        </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="1,5,1,5,1,0">
+       <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="1,0,5,1,5,0,1,0">
         <item>
          <spacer name="horizontalSpacer_15">
           <property name="orientation">
@@ -416,7 +416,33 @@
          </spacer>
         </item>
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_3" stretch="1,20">
+         <spacer name="horizontalSpacer_18">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,1,20,1">
+          <item>
+           <spacer name="verticalSpacer_7">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_7">
             <item>
@@ -573,6 +599,19 @@
             </row>
            </widget>
           </item>
+          <item>
+           <spacer name="verticalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
          </layout>
         </item>
         <item>
@@ -589,7 +628,20 @@
          </spacer>
         </item>
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_4" stretch="1,10">
+         <layout class="QVBoxLayout" name="verticalLayout_4" stretch="0,1,20,1">
+          <item>
+           <spacer name="verticalSpacer_6">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_4">
             <item>
@@ -735,7 +787,33 @@
             </row>
            </widget>
           </item>
+          <item>
+           <spacer name="verticalSpacer_4">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
          </layout>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_19">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
         </item>
         <item>
          <spacer name="horizontalSpacer_16">
@@ -761,6 +839,19 @@
       </widget>
      </widget>
     </item>
+    <item>
+     <spacer name="verticalSpacer_5">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -768,8 +859,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1075</width>
-     <height>27</height>
+     <width>866</width>
+     <height>21</height>
     </rect>
    </property>
   </widget>
