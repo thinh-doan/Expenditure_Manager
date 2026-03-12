@@ -77,7 +77,7 @@ class Ui_MainWindow(object):
         self.tableInfor.setHorizontalHeaderItem(3, item)
         item = QtWidgets.QTableWidgetItem()
         self.tableInfor.setHorizontalHeaderItem(4, item)
-        self.tableInfor.verticalHeader().setStretchLastSection(True)
+        self.tableInfor.verticalHeader().setStretchLastSection(False)
         self.verticalLayout_2.addWidget(self.tableInfor)
         self.horizontalLayout_9.addLayout(self.verticalLayout_2)
         self.verticalLayout = QtWidgets.QVBoxLayout()
