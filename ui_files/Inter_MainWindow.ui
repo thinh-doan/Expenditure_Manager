@@ -100,6 +100,10 @@
                 <property name="text">
                  <string>Add Income</string>
                 </property>
+                <property name="icon">
+                 <iconset>
+                  <normaloff>incomelogo.jpg</normaloff>incomelogo.jpg</iconset>
+                </property>
                </widget>
               </item>
               <item>
@@ -132,6 +136,10 @@
                <widget class="QPushButton" name="btnAdd_Expense">
                 <property name="text">
                  <string>Add Expense </string>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normaloff>payinglogo.png</normaloff>payinglogo.png</iconset>
                 </property>
                </widget>
               </item>
@@ -205,6 +213,10 @@
                <widget class="QPushButton" name="btnSummarize">
                 <property name="text">
                  <string>Summarize</string>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normaloff>iqual.png</normaloff>iqual.png</iconset>
                 </property>
                </widget>
               </item>
@@ -321,6 +333,10 @@
                 <property name="text">
                  <string>Compare</string>
                 </property>
+                <property name="icon">
+                 <iconset>
+                  <normaloff>cando.png</normaloff>cando.png</iconset>
+                </property>
                </widget>
               </item>
               <item>
@@ -360,6 +376,10 @@
                <widget class="QPushButton" name="btnRefresh">
                 <property name="text">
                  <string>Refresh</string>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normaloff>xoa.jpg</normaloff>xoa.jpg</iconset>
                 </property>
                </widget>
               </item>
