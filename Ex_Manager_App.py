@@ -1,13 +1,11 @@
 #Khởi tạo giao diện
 
 import sys
-from Ex_Manager_Ext import MainWindow, BASE_DIR
+from Ex_Manager_Ext import MainWindow
 from PyQt6.QtWidgets import QApplication
 from PyQt6.QtGui import QIcon
 
 app = QApplication(sys.argv)
-app.setWindowIcon(QIcon(str(BASE_DIR)))
-
 w = MainWindow()
 w.show()
 
