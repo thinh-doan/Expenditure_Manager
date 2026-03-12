@@ -33,7 +33,7 @@ class Ex_Manager_Process:
         except ValueError:
             return False, "Số tiền không hợp lệ!"
 
-    @classmethod
+    @classmethod #đưa dữ liệu về làm 1, chỉ xử lý "qlct" của 1 ng thôi nên k cần dùng đến self
     def get_transactions(cls):
         return cls.ds
 
@@ -102,19 +102,33 @@ class Ex_Manager_Process:
         # Lưu tháng
         data["Months"][month] = month_data
 
+        with open("data.json", "w", encoding="utf8") as f: #w dùng để ghi đè, cần lấy dữ liệu từ json ra data để lấy safety box và giữ đc dữ liệu cũ
+            json.dump(data, f, ensure_ascii=False, indent=3)
+
+ 
+ 
+    # --- Cập nhật Safety Box ---
+    @classmethod
+    def cap_nhat_safety_box(cls, month):
+        data = cls.lay_du_lieu_tu_json()
+        month_data = data["Months"].get(month, None)
+        if month_data is None:
+            return False, "Tháng không tồn tại trong dữ liệu!"
         # Cập nhật safety box
         sb_truoc = data["Safety Box"]
         saving = month_data["Saving"]["total"]
         data["Safety Box"] = sb_truoc + saving
 
-        with open("data.json", "w", encoding="utf8") as f:
+        with open("data.json", "w", encoding="utf8") as f: #w dùng để ghi đè, cần lấy dữ liệu từ json ra data để lấy safety box và giữ đc dữ liệu cũ
             json.dump(data, f, ensure_ascii=False, indent=3)
+ 
+ 
     # --- Chức năng Compare ---   
     @classmethod
     def compare_month(cls):
         """So sánh dữ liệu từ 2 tháng gần nhất"""
         data = cls.lay_du_lieu_tu_json()
-        months = list(data["Months"].keys())
+        months = list(data["Months"].keys())                                #.keys dùng để lâys mấy cái nhãn tháng ra để kiếm tháng so sánh, nhưng lúc lấy ra dl đg ở dạng dict_keys không có thao tác đc nên p đưa về list để thao tác
         if len(months) < 2:
             return {
                 "status": False,
@@ -125,14 +139,14 @@ class Ex_Manager_Process:
         # Sắp xếp theo tháng và lấy 2 tháng gần nhất
         months.sort()
         last_month = months[-2]
-        this_month = months[-1]
+        this_month = months[-1] #-1 là thằng cuối hàng, đếm ngược lên
         
         # Lấy dữ liệu từ hai tháng
         last_data = data["Months"][last_month]
         this_data = data["Months"][this_month]
         
         # Hàm lấy tổng
-        def get_total(d, key):
+        def get_total(d, key): #trả giá trị rỗng về 0 để tránh l
             return d.get(key, {}).get("total", 0)
         
         # So sánh 3 loại: Income, Saving, Expense
