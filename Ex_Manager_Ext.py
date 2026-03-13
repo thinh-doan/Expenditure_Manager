@@ -377,7 +377,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         # Tạo tin nhắn so sánh
         comp = result["comparison"]
-        message = f"So sánh: Tháng {comp['Income']['last_month']} vs Tháng {comp['Income']['this_month']}\n\n"
+        message = f"Compare:{comp['Income']['last_month']} vs {comp['Income']['this_month']}\n\n"
         
         for section, data in comp.items():
             message += f"{section}:\n"
