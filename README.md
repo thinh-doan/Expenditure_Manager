@@ -35,17 +35,21 @@ Giúp người dùng quản lý tài chính thông minh hơn. Nhu cầu phổ th
 # Giao diện người dùng
 Xem trực tiếp tại folder ui 
 # Cấu trúc các file code 
-1. File Ex_Manager_Ext
+1. File Ex_Manager_App.py
 
-  Thực hiện các chức năng liên quan trực tiếp đến giao diện như liên kết nút, hiển thị bảng ...
+   File gốc khởi tạo ứng dụng và gọi cửa sổ chính
 
-2. File Ex_Manager_Process
+2. File Ex_Manager_Ext
+
+   Thực hiện các chức năng liên quan trực tiếp đến giao diện như liên kết nút, hiển thị bảng ...
+
+3. File Ex_Manager_Process
   
-  Thực hiện các ràng buộc logic, công thức tính toán, lưu trữ JSON ...
+   Thực hiện các ràng buộc logic, công thức tính toán, lưu trữ JSON ...
 
-3. File giao diện Python
+4. File giao diện Python
   
-  Được generate trực tiếp từ 3 file ui trong folder ui, là "bản vẽ chi tiết" của phần mềm gồm:
+   Được generate trực tiếp từ 3 file ui trong folder ui, là "bản vẽ chi tiết" của phần mềm gồm:
    - Inter_Expense.py
    - Inter_Income.py
    - Inter_MainWindow.py
